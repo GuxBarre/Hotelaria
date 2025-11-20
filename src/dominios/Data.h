@@ -5,34 +5,80 @@
 #include <stdexcept>
 #include <vector>
 
-// A classe armazena em formato 'DD/MM/AAAA' 
-class Data:{
+/**
+ * @brief Classe para representação e validação de datas.
+ * * Armazena internamente a data em inteiros (dia, mês, ano), mas permite
+ * a manipulação via string (geralmente no formato DD/MM/AAAA ou similar).
+ */
+class Data {
 private:
-    int dia;
-    int mes;
-    int ano;
+    int dia; ///< Representa o dia do mês.
+    int mes; ///< Representa o mês (1-12).
+    int ano; ///< Representa o ano.
 
-    // Conversão e validação de meses
+    /**
+     * @brief Lista estática com os nomes ou siglas dos meses.
+     * Útil para conversão de string para int e vice-versa.
+     */
     static const std::vector<std::string> MESES;
 
-    // Conversos de mês de string para inteiro
+    /**
+     * @brief Converte o nome/sigla do mês para seu número correspondente.
+     * @param mesStr String contendo o mês (ex: "Jan", "Fev").
+     * @return int Número do mês (1 a 12).
+     */
     int converterMes(const std::string& mesStr) const; 
 
-    // Conversos de mês de inteiro para string
+    /**
+     * @brief Converte o número do mês para sua representação em string.
+     * @param mesInt Número do mês (1 a 12).
+     * @return std::string Nome ou sigla do mês.
+     */
     std::string converterMes(int mesInt) const;
 
-    // Verifica se o ano é bissexto
+    /**
+     * @brief Verifica se um ano é bissexto.
+     * @param ano O ano a ser verificado.
+     * @return true Se for bissexto.
+     * @return false Se não for bissexto.
+     */
     bool Bissexto(int ano) const;
 
-    // Valida a data
+    /**
+     * @brief Valida se os componentes da data formam uma data gregoriana válida.
+     * @param dia Dia a validar.
+     * @param mes Mês a validar.
+     * @param ano Ano a validar.
+     * @throw std::invalid_argument Se a data for inválida.
+     */
     void validarData(int dia, int mes, int ano) const;
 
 public:
-    Data:();
+    /**
+     * @brief Construtor padrão.
+     * Inicializa a data com valores padrão (ex: data atual ou vazia).
+     */
+    Data();
 
-    explicit Data:(const std::string& dataStr);
+    /**
+     * @brief Construtor que inicializa a data a partir de uma string.
+     * @param dataStr String contendo a data formatada.
+     * @throw std::invalid_argument Se o formato for inválido.
+     */
+    explicit Data(const std::string& dataStr);
     
+    /**
+     * @brief Define uma nova data a partir de uma string.
+     * Valida e atualiza os campos internos.
+     * @param dataStr String contendo a nova data.
+     * @throw std::invalid_argument Se a data for inválida.
+     */
     void setData(const std::string& dataStr);
+
+    /**
+     * @brief Retorna a data formatada como string.
+     * @return std::string A data no formato padrão da classe (ex: "DD/MM/AAAA").
+     */
     std::string getData() const;
 
 };
