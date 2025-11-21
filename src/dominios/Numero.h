@@ -3,25 +3,26 @@
 
 #include <stdexcept>
 #include <iostream>
-
+#include <string>
+using namespace std;
 /**
  * @class Numero
  * @brief Representa o domínio de número de quarto.
  * * @details
  * Regras de formato válido conforme especificação:
- * - Deve ser um valor inteiro.
+ * - Deve ser um numero inteiro.
  * - Intervalo permitido: 1 a 999 (inclusive).
  */
 class Numero {
 private:
-    int valor;
+    int numero;
     
     /**
      * @brief Valida se o número está dentro do intervalo permitido.
-     * * @param valor O inteiro a ser validado.
-     * @throw std::invalid_argument Se o valor for menor que 1 ou maior que 999.
+     * * @param numero O inteiro a ser validado.
+     * @throw invalid_argument Se o numero for menor que 1 ou maior que 999.
      */
-    void validar(int valor);
+    void validar(int numero);
 
 public:
     /**
@@ -31,21 +32,28 @@ public:
     Numero(); 
 
     /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o numero armazenado internamente.
+     * * @return string O numero do atributo armazenado.
+     */
+    operator string() const;
+    /**
      * @brief Construtor de inicialização.
      * * Já instancia o objeto validando o número fornecido.
-     * * @param valor Inteiro representando o número do quarto.
-     * @throw std::invalid_argument Se o valor estiver fora do intervalo de 1 a 999.
+     * * @param numero Inteiro representando o número do quarto.
+     * @throw invalid_argument Se o numero estiver fora do intervalo de 1 a 999.
      */
-    Numero(int valor); 
+    Numero(int numero); 
     
     virtual ~Numero();
 
     /**
      * @brief Define o número do quarto.
-     * * @param valor Inteiro entre 1 e 999.
-     * @throw std::invalid_argument Se o valor violar a regra de intervalo.
+     * * @param numero Inteiro entre 1 e 999.
+     * @throw invalid_argument Se o numero violar a regra de intervalo.
      */
-    void setNumero(int valor);
+    void setNumero(int numero);
 
     /**
      * @brief Recupera o número armazenado.

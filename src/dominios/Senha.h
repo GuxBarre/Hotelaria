@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
-
+using namespace std;
 /**
  * @class Senha
  * @brief Representa o domínio de senha para autenticação de gerentes.
@@ -19,14 +19,14 @@
  */
 class Senha {
 private:
-    std::string valor;
+    string senha;
 
     /**
      * @brief Valida a senha segundo regras complexas de composição e sequência.
      * * @param senha A string a ser validada.
-     * @throw std::invalid_argument Se a senha não tiver tamanho 5, contiver caracteres inválidos, possuir tipos consecutivos proibidos ou não tiver a composição mínima exigida.
+     * @throw invalid_argument Se a senha não tiver tamanho 5, contiver caracteres inválidos, possuir tipos consecutivos proibidos ou não tiver a composição mínima exigida.
      */
-    void validar(std::string senha);
+    void validar(string senha);
 
 public:
     /**
@@ -36,11 +36,19 @@ public:
     Senha(); 
 
     /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o senha armazenado internamente.
+     * * @return string O senha do atributo armazenado.
+     */
+    operator string() const;
+
+    /**
      * @brief Construtor de inicialização.
      * * @param senha String da senha.
-     * @throw std::invalid_argument Se a senha for inválida.
+     * @throw invalid_argument Se a senha for inválida.
      */
-    Senha(std::string senha); 
+    Senha(string senha); 
     
     virtual ~Senha();
 
@@ -48,15 +56,15 @@ public:
      * @brief Define a senha.
      * * Executa a validação completa antes de armazenar.
      * * @param senha String com 5 caracteres atendendo a todos os critérios de segurança.
-     * @throw std::invalid_argument Em caso de violação de qualquer regra de validação.
+     * @throw invalid_argument Em caso de violação de qualquer regra de validação.
      */
-    void setSenha(std::string senha);
+    void setSenha(string senha);
 
     /**
      * @brief Recupera a senha armazenada.
-     * * @return std::string A senha atual.
+     * * @return string A senha atual.
      */
-    std::string getSenha() const;
+    string getSenha() const;
 };
 
 #endif 

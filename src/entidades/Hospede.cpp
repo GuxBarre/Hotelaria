@@ -1,13 +1,13 @@
 #include "Hospede.h"
 
-Hospede::Hospede(const Nome& nome, const Email& email, const Endereco& endereco, const Cartao& cartao)
-    : Pessoa(nome, email), 
-    endereco(endereco), 
-    cartao(cartao) {
+
+Hospede::Hospede() {}
+
+Hospede::~Hospede() {
 }
 
 void Hospede::setEndereco(const Endereco& endereco) {
-    this->endereco = novoEndereco;
+    this->endereco = endereco;
 }
 
 Endereco Hospede::getEndereco() const {
@@ -15,7 +15,7 @@ Endereco Hospede::getEndereco() const {
 }
 
 void Hospede::setCartao(const Cartao& cartao) {
-    this->cartao = novoCartao;
+    this->cartao = cartao;
 }
 
 Cartao Hospede::getCartao() const {

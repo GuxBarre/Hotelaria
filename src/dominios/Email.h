@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
-
+using namespace std;
 /**
  * @class Email
  * @brief Representa o domínio de endereço de e-mail.
@@ -18,14 +18,14 @@
  */
 class Email {
 private:
-    std::string valor;
+    string email;
 
     /**
      * @brief Valida o formato do e-mail segundo as regras estabelecidas.
      * * @param email A string do e-mail a ser validada.
-     * @throw std::invalid_argument Se o e-mail violar qualquer regra de formatação (tamanho, caracteres proibidos ou posição incorreta de pontuação).
+     * @throw invalid_argument Se o e-mail violar qualquer regra de formatação (tamanho, caracteres proibidos ou posição incorreta de pontuação).
      */
-    void validar(std::string email);
+    void validar(string email);
 
 public:
     /**
@@ -38,24 +38,32 @@ public:
      * @brief Construtor de inicialização.
      * * Já realiza a validação do e-mail fornecido na criação do objeto.
      * * @param email String contendo o endereço de e-mail.
-     * @throw std::invalid_argument Se o formato for inválido.
+     * @throw invalid_argument Se o formato for inválido.
      */
-    Email(std::string email);
+    Email(string email);
     
     virtual ~Email();
 
     /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o valor armazenado internamente.
+     * * @return string O valor do atributo armazenado.
+     */
+    operator string() const;
+
+    /**
      * @brief Define o endereço de e-mail.
      * * @param email String contendo o e-mail no formato parte-local@domínio.
-     * @throw std::invalid_argument Se o formato for inválido (ex: exceder 64 caracteres na parte local ou 255 no domínio).
+     * @throw invalid_argument Se o formato for inválido (ex: exceder 64 caracteres na parte local ou 255 no domínio).
      */
-    void setEmail(std::string email);
+    void setEmail(string email);
 
     /**
      * @brief Recupera o endereço de e-mail armazenado.
-     * * @return std::string O e-mail atual.
+     * * @return string O e-mail atual.
      */
-    std::string getEmail() const;
+    string getEmail() const;
 };
 
 #endif

@@ -6,6 +6,10 @@
 #include "../dominios/Telefone.h"
 #include "../dominios/Codigo.h"
 
+/**
+ * @brief Entidade que representa um Hotel.
+ * Contém Nome, Endereço, Telefone e Código (Identificador).
+ */
 class Hotel {
     private:
         Nome nome;
@@ -14,7 +18,15 @@ class Hotel {
         Codigo codigo;
 
     public:
-        Hotel(const Nome& nome, const Endereco& endereco, const Telefone& telefone, const Codigo& codigo);
+        /**
+         * @brief Construtor padrão.
+         */
+        Hotel();
+
+        /**
+         * @brief Destrutor virtual.
+         */
+        virtual ~Hotel();
 
         void setNome(const Nome& nome);
         Nome getNome() const;
@@ -27,5 +39,6 @@ class Hotel {
 
         void setCodigo(const Codigo& codigo);
         Codigo getCodigo() const;
-}
-#endif
+}; // <--- Faltava esse ponto e vírgula
+
+#endif // HOTEL_H

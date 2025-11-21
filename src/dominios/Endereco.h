@@ -3,7 +3,7 @@
 
 #include <string>
 #include <stdexcept>
-
+using namespace std;
 /**
  * @brief Classe responsável por armazenar e validar um endereço.
  * Regras de validação:
@@ -11,15 +11,15 @@
  */
 class Endereco {
 private:
-    std::string valor; ///< Armazena o texto do endereço.
+    string endereco; ///< Armazena o texto do endereço.
 
     /**
      * @brief Valida as regras de negócio do endereço.
      * Verifica se o tamanho da string está dentro do intervalo permitido [5, 30].
      * @param endereco A string a ser verificada.
-     * @throw std::invalid_argument Se o tamanho for inválido.
+     * @throw invalid_argument Se o tamanho for inválido.
      */
-    void validarEndereco(const std::string& endereco) const;
+    void validarEndereco(const string& endereco) const;
 
 public:
     /**
@@ -29,25 +29,33 @@ public:
     Endereco();
 
     /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o endereco armazenado internamente.
+     * * @return string O endereco do atributo armazenado.
+     */
+    operator string() const;
+
+    /**
      * @brief Construtor com inicialização e validação.
      * @param endereco O endereço a ser atribuído.
-     * @throw std::invalid_argument Se o endereço for inválido.
+     * @throw invalid_argument Se o endereço for inválido.
      */
-    explicit Endereco(const std::string& endereco);
+    explicit Endereco(const string& endereco);
 
     /**
      * @brief Define um novo endereço.
-     * Substitui o valor atual se o novo passar na validação.
+     * Substitui o endereco atual se o novo passar na validação.
      * @param endereco O novo endereço.
-     * @throw std::invalid_argument Se o endereço for inválido.
+     * @throw invalid_argument Se o endereço for inválido.
      */
-    void setEndereco(const std::string& endereco);
+    void setEndereco(const string& endereco);
 
     /**
      * @brief Recupera o endereço armazenado.
-     * @return std::string O texto do endereço.
+     * @return string O texto do endereço.
      */
-    std::string getEndereco() const;
+    string getEndereco() const;
 };
 
 #endif

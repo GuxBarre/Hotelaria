@@ -1,25 +1,31 @@
 #include "Capacidade.h"
 #include <string> 
 
-void Capacidade::validar(int valor) const {
-    if (valor < 1 || valor > 4) {
-        throw std::invalid_argument("Capacidade invalida. Valores permitidos: 1, 2, 3 ou 4.");
+using namespace std;
+
+void Capacidade::validar(int capacidade) const {
+    if (capacidade < 1 || capacidade > 4) {
+        throw std::invalid_argument("Capacidade invalida. capacidadees permitidos: 1, 2, 3 ou 4.");
     }
 }
 
 Capacidade::Capacidade() {
-    this->valor = 0;
+    this->capacidade = 1;
 }
 
-Capacidade::Capacidade(int valor) {
-    setCapacidade(valor);
+Capacidade::Capacidade(int capacidade) {
+    setCapacidade(capacidade);
 }
 
-void Capacidade::setCapacidade(int valor) {
-    validar(valor);
-    this->valor = valor;
+void Capacidade::setCapacidade(int capacidade) {
+    validar(capacidade);
+    this->capacidade = capacidade;
 }
 
 int Capacidade::getCapacidade() const {
-    return this->valor;
+    return this->capacidade;
+}
+
+Capacidade::operator string() const {
+    return std::to_string(capacidade);
 }

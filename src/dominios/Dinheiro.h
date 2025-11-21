@@ -3,7 +3,8 @@
 
 #include <stdexcept>
 #include <iostream>
-
+#include <string>
+using namespace std;
 /**
  * @class Dinheiro
  * @brief Representa o domínio de valores monetários.
@@ -23,7 +24,7 @@ private:
     /**
      * @brief Valida se o valor em centavos está na faixa permitida.
      * * @param valor O valor em centavos a ser validado.
-     * @throw std::invalid_argument Se o valor estiver fora do intervalo de 1 a 100.000.000 (correspondente a 0,01 - 1.000.000,00).
+     * @throw invalid_argument Se o valor estiver fora do intervalo de 1 a 100.000.000 (correspondente a 0,01 - 1.000.000,00).
      */
     void validar(long long valor);
 
@@ -35,10 +36,18 @@ public:
     Dinheiro(); 
 
     /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o valor armazenado internamente.
+     * * @return string O valor do atributo armazenado.
+     */
+    operator string() const;
+
+    /**
      * @brief Construtor que inicializa com um valor em ponto flutuante.
      * * Converte o valor double para centavos e valida.
      * * @param valor Valor monetário (ex: 100.50).
-     * @throw std::invalid_argument Se o valor estiver fora da faixa permitida.
+     * @throw invalid_argument Se o valor estiver fora da faixa permitida.
      */
     Dinheiro(double valor); 
     
@@ -48,7 +57,7 @@ public:
      * @brief Define o valor monetário.
      * * Realiza a conversão de double para representação interna em centavos e valida as regras de negócio.
      * * @param valor Valor monetário (ex: 100.50).
-     * @throw std::invalid_argument Se o valor for menor que 0,01 ou maior que 1.000.000,00.
+     * @throw invalid_argument Se o valor for menor que 0,01 ou maior que 1.000.000,00.
      */
     void setDinheiro(double valor);
 

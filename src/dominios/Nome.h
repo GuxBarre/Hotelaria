@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
-
+using namespace std;
 /**
  * @class Nome
  * @brief Representa o domínio de nome de pessoa ou hotel.
@@ -18,14 +18,14 @@
  */
 class Nome {
 private:
-    std::string nome;
+    string nome;
     
     /**
      * @brief Valida se o nome obedece às regras de formatação e tamanho.
      * * @param nome A string a ser validada.
-     * @throw std::invalid_argument Se o nome for muito curto/longo, contiver caracteres inválidos, termos minúsculos ou espaços mal posicionados.
+     * @throw invalid_argument Se o nome for muito curto/longo, contiver caracteres inválidos, termos minúsculos ou espaços mal posicionados.
      */
-    void validar(std::string nome);
+    void validar(string nome);
 
 public:
     /**
@@ -38,25 +38,33 @@ public:
      * @brief Construtor de inicialização.
      * * Já realiza a validação do nome fornecido.
      * * @param nome String representando o nome.
-     * @throw std::invalid_argument Se o formato for inválido.
+     * @throw invalid_argument Se o formato for inválido.
      */
-    Nome(std::string nome);
-    
+    Nome(string nome);
+
+    /**
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o valor armazenado internamente.
+     * * @return string O valor do atributo armazenado.
+     */
+    operator string() const; 
+
     virtual ~Nome();
 
     /**
      * @brief Define o nome.
      * * Verifica todas as regras (tamanho, capitalização e espaços) antes de armazenar.
      * * @param nome String do nome (ex: "Hotel California").
-     * @throw std::invalid_argument Se o nome não atender às regras de negócio.
+     * @throw invalid_argument Se o nome não atender às regras de negócio.
      */
-    void setNome(std::string nome);
+    void setNome(string nome);
 
     /**
      * @brief Recupera o nome armazenado.
-     * * @return std::string O nome atual.
+     * * @return string O nome atual.
      */
-    std::string getNome() const;
+    string getNome() const;
 };
 
 #endif

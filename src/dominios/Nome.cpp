@@ -1,6 +1,6 @@
 #include "Nome.h"
 #include <cctype> 
-
+#include <string>
 using namespace std;
 
 Nome::Nome() {
@@ -16,22 +16,22 @@ Nome::~Nome() {
 
 void Nome::validar(string nome) {
     if (nome.length() < 5 || nome.length() > 20) {
-        throw invalid_argument("Erro: Nome deve ter entre 5 e 20 caracteres.");
+        throw invalid_argument("Nome deve ter entre 5 e 20 caracteres.");
     }
 
     for (size_t i = 0; i < nome.length(); i++) {
         char c = nome[i];
 
         if (!isalpha(c) && c != ' ') {
-            throw invalid_argument("Erro: Nome contem caracteres invalidos (apenas letras e espaco).");
+            throw invalid_argument("Nome contem caracteres invalidos (apenas letras e espaco).");
         }
 
         if (c == ' ') {
             if (i == nome.length() - 1) {
-                throw invalid_argument("Erro: Nome nao pode terminar com espaco.");
+                throw invalid_argument("Nome nao pode terminar com espaco.");
             }
             if (!isalpha(nome[i + 1])) {
-                throw invalid_argument("Erro: Espaco deve ser seguido por letra (sem espacos duplos).");
+                throw invalid_argument("Espaco deve ser seguido por letra (sem espacos duplos).");
             }
         }
 
@@ -39,7 +39,7 @@ void Nome::validar(string nome) {
         
         if (deveSerMaiuscula) {
             if (!isupper(c)) {
-                throw invalid_argument("Erro: Primeira letra de cada termo deve ser maiuscula.");
+                throw invalid_argument("Primeira letra de cada termo deve ser maiuscula.");
             }
         }
     }
@@ -51,5 +51,9 @@ void Nome::setNome(string nome) {
 }
 
 string Nome::getNome() const {
+    return nome;
+}
+
+Nome::operator string() const {
     return nome;
 }

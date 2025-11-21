@@ -1,34 +1,36 @@
 #ifndef QUARTO_H
 #define QUARTO_H
 
-#include "Numero.h"
-#include "Capacidade.h"
-#include "Dinheiro.h"
+#include "../dominios/Numero.h"
+#include "../dominios/Capacidade.h"
+#include "../dominios/Dinheiro.h"
+#include "../dominios/Ramal.h"
 
 /**
- * Entidade que representa um quarto de hotel.
- * Cada atributo é uma classe de domínio.
+ * @brief Entidade que representa um Quarto do hotel.
  */
 class Quarto {
 private:
-    Numero     numero;      ///< Identificador do quarto dentro do hotel (001 a 999).
-    Capacidade capacidade;  ///< Quantidade de hóspedes (1, 2, 3 ou 4).
-    Dinheiro   diaria;      ///< Valor da diária do quarto.
+    Numero numero;
+    Capacidade capacidade;
+    Dinheiro diaria;
+    Ramal ramal;
 
 public:
-    Quarto() = default;
+    Quarto();
+    virtual ~Quarto();
 
-    // Número do quarto
-    void setNumero(const Numero &numero);
+    void setNumero(const Numero& numero);
     Numero getNumero() const;
 
-    // Capacidade
-    void setCapacidade(const Capacidade &capacidade);
+    void setCapacidade(const Capacidade& capacidade);
     Capacidade getCapacidade() const;
 
-    // Diária
-    void setDiaria(const Dinheiro &diaria);
+    void setDiaria(const Dinheiro& diaria);
     Dinheiro getDiaria() const;
+
+    void setRamal(const Ramal& ramal);
+    Ramal getRamal() const;
 };
 
 #endif // QUARTO_H

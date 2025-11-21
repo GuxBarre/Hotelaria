@@ -1,35 +1,40 @@
 #include "Telefone.h"
-#include <cctype> 
-
-void Telefone::validarTelefone(const std::string& telefone) const {
-    if (telefone.length() != 15){
-        throw std::invalid_argument("O telefone deve ter exatamente 15 caracteres (Formato: +DDDDDDDDDDDDDD).");
+#include <cctype>
+#include <string> 
+using namespace std;
+void Telefone::validarTelefone(const string& telefone) const {
+    if (telefone.length() != 14){
+        throw invalid_argument("O telefone deve ter exatamente 14 caracteres (Formato: +DDDDDDDDDDDDDD).");
     }
 
     if (telefone[0] != '+'){
-        throw std::invalid_argument("O telefone deve começar com '+'");
+        throw invalid_argument("O telefone deve começar com '+'");
     }
 
     for (size_t i = 1; i < telefone.length(); i++) {
-        if(!std::isdigit(telefone[i])) {
-            throw std::invalid_argument("O telefone deve conter apenas dígitos após o '+'");
+        if(!isdigit(telefone[i])) {
+            throw invalid_argument("O telefone deve conter apenas dígitos após o '+'");
         }
     }
 }
 
 Telefone::Telefone(){
-    this->valor = "";
+    this->telefone = "+0000000000000";
 }
 
-Telefone::Telefone(const std::string& telefone){
+Telefone::Telefone(const string& telefone){
     setTelefone(telefone);
 }
 
-void Telefone::setTelefone(const std::string& telefone){
+void Telefone::setTelefone(const string& telefone){
     validarTelefone(telefone); 
-    this->valor = telefone;
+    this->telefone = telefone;
 }
 
-std::string Telefone::getTelefone() const {
-    return this->valor;
+string Telefone::getTelefone() const {
+    return this->telefone;
+}
+
+Telefone::operator string() const {
+    return telefone;
 }

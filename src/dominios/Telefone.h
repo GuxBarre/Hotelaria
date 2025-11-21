@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdexcept>
+using namespace std;
 
 /**
  * @brief Classe responsável por armazenar e validar um número de telefone.
@@ -11,7 +12,7 @@
  */
 class Telefone {
     private:
-        std::string valor; ///< Armazena o número do telefone.
+        string telefone; ///< Armazena o número do telefone.
 
         /**
          * @brief Valida o formato do telefone.
@@ -20,9 +21,9 @@ class Telefone {
          * 2. Deve começar com '+'.
          * 3. O restante deve ser apenas números.
          * @param telefone A string a ser verificada.
-         * @throw std::invalid_argument Se o formato for inválido.
+         * @throw invalid_argument Se o formato for inválido.
          */
-        void validarTelefone(const std::string& telefone) const;
+        void validarTelefone(const string& telefone) const;
 
     public:
         /**
@@ -32,24 +33,32 @@ class Telefone {
         Telefone();
 
         /**
+         * @brief Sobrecarga do operador de conversão para string.
+         * * Permite que o objeto seja convertido implicitamente para uma string,
+         * retornando o telefone armazenado internamente.
+         * * @return string O telefone do atributo armazenado.
+         */
+        operator string() const;
+
+        /**
          * @brief Construtor com validação.
          * @param telefone O número a ser armazenado.
-         * @throw std::invalid_argument Se o telefone for inválido.
+         * @throw invalid_argument Se o telefone for inválido.
          */
-        explicit Telefone(const std::string& telefone);
+        explicit Telefone(const string& telefone);
 
         /**
          * @brief Define um novo número.
          * @param telefone O novo número.
-         * @throw std::invalid_argument Se o formato for incorreto.
+         * @throw invalid_argument Se o formato for incorreto.
          */
-        void setTelefone(const std::string& telefone);
+        void setTelefone(const string& telefone);
 
         /**
          * @brief Retorna o telefone armazenado.
-         * @return std::string O número do telefone.
+         * @return string O número do telefone.
          */
-        std::string getTelefone() const;
+        string getTelefone() const;
 };
 
 #endif

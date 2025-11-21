@@ -352,7 +352,7 @@ int main() {
 
     try {
         cout << "1. Tentando criar telefone valido (+55219999988888)..." << endl;
-        Telefone t("+55219999988888");
+        Telefone t("+5521999998888");
         cout << "   [SUCESSO] Telefone aceito: " << t.getTelefone() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;

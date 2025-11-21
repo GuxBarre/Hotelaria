@@ -1,31 +1,37 @@
 #include "Codigo.h"
 #include <cctype>
+#include <string> 
+using namespace std;
 
-void Codigo::validar(const std::string& codigo) const {
+void Codigo::validar(const string& codigo) const {
     if (codigo.length() != 10) {
-        throw std::invalid_argument("Codigo deve ter exatamente 10 caracteres.");
+        throw invalid_argument("Codigo deve ter exatamente 10 caracteres.");
     }
 
     for (char c : codigo) {
         if (!isalnum(c)) {
-            throw std::invalid_argument("Codigo deve conter apenas letras e numeros.");
+            throw invalid_argument("Codigo deve conter apenas letras e numeros.");
         }
     }
 }
 
 Codigo::Codigo() {
-    this->valor = "";
+    this->codigo = "0000000000";
 }
 
-Codigo::Codigo(const std::string& codigo) {
+Codigo::Codigo(const string& codigo) {
     setCodigo(codigo);
 }
 
-void Codigo::setCodigo(const std::string& codigo) {
+void Codigo::setCodigo(const string& codigo) {
     validar(codigo);
-    this->valor = codigo;
+    this->codigo = codigo;
 }
 
 std::string Codigo::getCodigo() const {
-    return this->valor;
+    return this->codigo;
+}
+
+Codigo::operator string() const {
+    return codigo; 
 }

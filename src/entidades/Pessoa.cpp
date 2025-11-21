@@ -1,13 +1,17 @@
 #include "Pessoa.h"
 
-// Implementando a classe Pessoa
-Pessoa::Pessoa(const Nome& nome, const Email& email) : nome(nome), email(email){
+Pessoa::Pessoa() {
+}
 
-    //Definir email
+Pessoa::~Pessoa() {
 }
 
 void Pessoa::setNome(const Nome& nome) {
-    this->nome = novoNome;
+    this->nome = nome;
+}
+
+void Pessoa::setEmail(const Email& email) {
+    this->email = email;
 }
 
 Nome Pessoa::getNome() const {

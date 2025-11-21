@@ -3,7 +3,7 @@
 
 #include <string>
 #include <stdexcept>
-
+using namespace std;
 /**
  * @class Codigo
  * @brief Representa o domínio de Código de identificação.
@@ -15,14 +15,14 @@
  */
 class Codigo {
     private:
-        std::string valor; 
+        string codigo; 
 
         /**
          * @brief Verifica se a string atende às regras de negócio.
          * * @param codigo A string a ser verificada.
-         * @throw std::invalid_argument Se o comprimento não for 10 ou se houver caracteres inválidos (não alfanuméricos).
+         * @throw invalid_argument Se o comprimento não for 10 ou se houver caracteres inválidos (não alfanuméricos).
          */
-        void validar(const std::string& codigo) const;
+        void validar(const string& codigo) const;
 
     public:
         /**
@@ -32,22 +32,30 @@ class Codigo {
         Codigo();
 
         /**
-         * @brief Construtor que inicializa com um valor específico.
-         * * @param codigo String representando o código (10 caracteres alfanuméricos).
-         * @throw std::invalid_argument Se o formato for inválido.
+         * @brief Sobrecarga do operador de conversão para string.
+         * * Permite que o objeto seja convertido implicitamente para uma string,
+         * retornando o codigo armazenado internamente.
+         * * @return string O codigo do atributo armazenado.
          */
-        explicit Codigo(const std::string& codigo);
+        operator string() const;
 
         /**
-         * @brief Define o valor do código.
+         * @brief Construtor que inicializa com um codigo específico.
+         * * @param codigo String representando o código (10 caracteres alfanuméricos).
+         * @throw invalid_argument Se o formato for inválido.
+         */
+        explicit Codigo(const string& codigo);
+
+        /**
+         * @brief Define o codigo do código.
          * * @param codigo String com 10 caracteres (letras a-z ou dígitos 0-9).
          * @throw std::invalid_argument Caso a regra de validação não seja atendida.
          */
-        void setCodigo(const std::string& codigo);
+        void setCodigo(const string& codigo);
 
         /**
          * @brief Obtém o código armazenado.
-         * * @return std::string O código atual.
+         * * @return string O código atual.
          */
         std::string getCodigo() const;
 };

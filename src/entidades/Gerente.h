@@ -1,23 +1,39 @@
 #ifndef GERENTE_H
 #define GERENTE_H
 
-#include "Pessoa.h" // Classe mãe
+#include "Pessoa.h" 
 #include "../dominios/Ramal.h"
 #include "../dominios/Senha.h"
 
-// Herda publicamente da classe Pessoa
+/**
+ * @brief Entidade que representa o Gerente do hotel.
+ * Herda de Pessoa (que já contém Nome e Email).
+ * Adiciona os atributos específicos: Ramal e Senha.
+ */
 class Gerente : public Pessoa {
     private:
         Ramal ramal;
         Senha senha;
 
     public:
-        Gerente(const Nome& nome, const Email& email, const Ramal& ramal, const Senha& senha);
+        /**
+         * @brief Construtor padrão.
+         * Necessário para instanciar o objeto antes de definir os valores.
+         */
+        Gerente();
 
-        Ramal getRamal() const;
+        /**
+         * @brief Destrutor virtual.
+         * Garante a destruição correta dos objetos herdados.
+         */
+        virtual ~Gerente();
+
+        // Setters e Getters específicos de Gerente
         void setRamal(const Ramal& ramal);
+        Ramal getRamal() const;
 
-        Senha getSenha() const;
         void setSenha(const Senha& senha);
+        Senha getSenha() const;
 };
-#endif
+
+#endif // GERENTE_H

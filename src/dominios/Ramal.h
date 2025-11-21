@@ -3,7 +3,8 @@
 
 #include <stdexcept>
 #include <iostream>
-
+#include <string>
+using namespace std;
 /**
  * @class Ramal
  * @brief Representa o domínio de Ramal telefônico.
@@ -14,14 +15,14 @@
  */
 class Ramal {
 private:
-    int valor;
+    int ramal;
     
     /**
      * @brief Valida se o ramal está dentro do intervalo permitido.
-     * * @param valor O inteiro a ser validado.
-     * @throw std::invalid_argument Se o valor for menor que 0 ou maior que 50.
+     * * @param ramal O inteiro a ser validado.
+     * @throw invalid_argument Se o ramal for menor que 0 ou maior que 50.
      */
-    void validar(int valor);
+    void validar(int ramal);
 
 public:
     /**
@@ -31,24 +32,32 @@ public:
     Ramal(); 
 
     /**
-     * @brief Construtor de inicialização.
-     * * @param valor Inteiro representando o ramal.
-     * @throw std::invalid_argument Se o valor estiver fora do intervalo de 0 a 50.
+     * @brief Sobrecarga do operador de conversão para string.
+     * * Permite que o objeto seja convertido implicitamente para uma string,
+     * retornando o ramal armazenado internamente.
+     * * @return string O ramal do atributo armazenado.
      */
-    Ramal(int valor); 
+    operator string() const;
+
+    /**
+     * @brief Construtor de inicialização.
+     * * @param ramal Inteiro representando o ramal.
+     * @throw invalid_argument Se o ramal estiver fora do intervalo de 0 a 50.
+     */
+    Ramal(int ramal); 
     
     virtual ~Ramal();
 
     /**
      * @brief Define o número do ramal.
-     * * @param valor Inteiro entre 0 e 50.
-     * @throw std::invalid_argument Se o valor violar a regra de intervalo.
+     * * @param ramal Inteiro entre 0 e 50.
+     * @throw invalid_argument Se o ramal violar a regra de intervalo.
      */
-    void setRamal(int valor);
+    void setRamal(int ramal);
 
     /**
      * @brief Recupera o número do ramal.
-     * * @return int O valor do ramal.
+     * * @return int O ramal do ramal.
      */
     int getRamal() const;
 };

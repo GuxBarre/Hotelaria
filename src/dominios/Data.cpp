@@ -2,8 +2,9 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+using namespace std;
 
-const std::vector<std::string> Data::MESES = {
+const vector<string> Data::MESES = {
     "JAN", "FEV", "MAR", "ABR", "MAI", "JUN", 
     "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"
 };
@@ -15,20 +16,20 @@ Data::Data() {
 }
 
 
-Data::Data(const std::string& dataStr) {
+Data::Data(const string& dataStr) {
     setData(dataStr);
 }
 
 
-void Data::setData(const std::string& dataStr) {
-    std::stringstream ss(dataStr);
+void Data::setData(const string& dataStr) {
+    stringstream ss(dataStr);
     char barra1, barra2;
     int d, m, a;
 
     ss >> d >> barra1 >> m >> barra2 >> a;
 
     if (ss.fail() || barra1 != '/' || barra2 != '/') {
-        throw std::invalid_argument("Formato de data invalido. Use DD/MM/AAAA.");
+        throw invalid_argument("Formato de data invalido. Use DD/MM/AAAA.");
     }
 
     validarData(d, m, a);
@@ -38,21 +39,21 @@ void Data::setData(const std::string& dataStr) {
     this->ano = a;
 }
 
-std::string Data::getData() const {
-    std::stringstream ss;
-    ss << std::setw(2) << std::setfill('0') << dia << "/"
-       << std::setw(2) << std::setfill('0') << mes << "/"
+string Data::getData() const {
+    stringstream ss;
+    ss << setw(2) << setfill('0') << dia << "/"
+       << setw(2) << setfill('0') << mes << "/"
        << ano;
     return ss.str();
 }
 
 void Data::validarData(int dia, int mes, int ano) const {
     if (mes < 1 || mes > 12) {
-        throw std::invalid_argument("Mes invalido (1-12).");
+        throw invalid_argument("Mes invalido (1-12).");
     }
 
     if (ano < 2000 || ano > 2999) {
-        throw std::invalid_argument("Ano fora do intervalo permitido (2000 a 2999).");
+        throw invalid_argument("Ano fora do intervalo permitido (2000 a 2999).");
     }
 
     int diasNoMes = 31; 
@@ -64,7 +65,7 @@ void Data::validarData(int dia, int mes, int ano) const {
     }
 
     if (dia < 1 || dia > diasNoMes) {
-        throw std::invalid_argument("Dia invalido para o mes informado.");
+        throw invalid_argument("Dia invalido para o mes informado.");
     }
 }
 
@@ -72,18 +73,22 @@ bool Data::Bissexto(int ano) const {
     return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
 }
 
-int Data::converterMes(const std::string& mesStr) const {
+int Data::converterMes(const string& mesStr) const {
     for (size_t i = 0; i < MESES.size(); i++) {
         if (MESES[i] == mesStr) {
             return i + 1;
         }
     }
-    throw std::invalid_argument("Mes invalido.");
+    throw invalid_argument("Mes invalido.");
 }
 
-std::string Data::converterMes(int mesInt) const {
+string Data::converterMes(int mesInt) const {
     if (mesInt < 1 || mesInt > 12) {
-        throw std::runtime_error("Mes invalido.");
+        throw runtime_error("Mes invalido.");
     }
     return MESES[mesInt - 1];
+}
+
+Data::operator string() const {
+    return getData();
 }

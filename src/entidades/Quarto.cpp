@@ -1,28 +1,35 @@
 #include "Quarto.h"
 
-// Número
-void Quarto::setNumero(const Numero &numero) {
+Quarto::Quarto() {
+}
+
+Quarto::~Quarto() {
+}
+
+void Quarto::setNumero(const Numero& numero) {
     this->numero = numero;
 }
-
 Numero Quarto::getNumero() const {
-    return numero;
+    return this->numero;
 }
 
-// Capacidade
-void Quarto::setCapacidade(const Capacidade &capacidade) {
+void Quarto::setCapacidade(const Capacidade& capacidade) {
     this->capacidade = capacidade;
 }
-
 Capacidade Quarto::getCapacidade() const {
-    return capacidade;
+    return this->capacidade;
 }
 
-// Diária
-void Quarto::setDiaria(const Dinheiro &diaria) {
+void Quarto::setDiaria(const Dinheiro& diaria) {
     this->diaria = diaria;
 }
-
 Dinheiro Quarto::getDiaria() const {
-    return diaria;
+    return this->diaria;
+}
+
+void Quarto::setRamal(const Ramal& ramal) {
+    this->ramal = ramal;
+}
+Ramal Quarto::getRamal() const {
+    return this->ramal;
 }

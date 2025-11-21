@@ -1,10 +1,10 @@
 #include "Senha.h"
 #include <cctype>
-
+#include <string>
 using namespace std;
 
 Senha::Senha() {
-    this->valor = "A1b%2";
+    this->senha = "A1b%2";
 }
 
 Senha::Senha(string senha) {
@@ -16,7 +16,7 @@ Senha::~Senha() {
 
 void Senha::validar(string senha) {
     if (senha.length() != 5) {
-        throw invalid_argument("Erro: Senha deve ter exatamente 5 caracteres.");
+        throw invalid_argument("Senha deve ter exatamente 5 caracteres.");
     }
 
     bool temMaiuscula = false;
@@ -35,7 +35,7 @@ void Senha::validar(string senha) {
         bool ehEspecial = (especiaisPermitidos.find(c) != string::npos);
 
         if (!ehMaiuscula && !ehMinuscula && !ehDigito && !ehEspecial) {
-            throw invalid_argument("Erro: Senha contem caractere invalido.");
+            throw invalid_argument("Senha contem caractere invalido.");
         }
 
         if (ehMaiuscula) temMaiuscula = true;
@@ -47,24 +47,28 @@ void Senha::validar(string senha) {
             char anterior = senha[i-1];
             
             if (isalpha(anterior) && isalpha(c)) {
-                throw invalid_argument("Erro: Senha nao pode ter letras consecutivas.");
+                throw invalid_argument("Senha nao pode ter letras consecutivas.");
             }
             if (isdigit(anterior) && isdigit(c)) {
-                throw invalid_argument("Erro: Senha nao pode ter digitos consecutivos.");
+                throw invalid_argument("Senha nao pode ter digitos consecutivos.");
             }
         }
     }
 
     if (!temMaiuscula || !temMinuscula || !temDigito || !temEspecial) {
-        throw invalid_argument("Erro: Senha deve conter pelo menos uma maiuscula, uma minuscula, um digito e um especial.");
+        throw invalid_argument("Senha deve conter pelo menos uma maiuscula, uma minuscula, um digito e um especial.");
     }
 }
 
 void Senha::setSenha(string senha) {
     validar(senha);
-    this->valor = senha;
+    this->senha = senha;
 }
 
 string Senha::getSenha() const {
-    return valor;
+    return senha;
+}
+
+Senha::operator string() const {
+    return senha;
 }
