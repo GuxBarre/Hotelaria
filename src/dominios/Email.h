@@ -2,28 +2,31 @@
 #define EMAIL_H
 
 #include <string>
+#include <stdexcept>
+#include <iostream>
 
-/**
- * Classe de domínio para representar um endereço de e-mail válido.
- */
+// Domínio: Email
+// Regras:
+// 1. Formato parte-local@dominio.
+// 2. Parte local: até 64 chars, letras(a-z), digitos(0-9), ponto(.) ou hifen(-).
+//    - Não pode iniciar/terminar com ponto ou hifen.
+//    - Ponto ou hifen deve ser seguido por letra ou digito.
+// 3. Dominio: até 255 chars, partes separadas por ponto.
+//    - Partes: letras(a-z), digitos(0-9) ou hifen(-).
+//    - Não pode iniciar/terminar com hifen.
+
 class Email {
 private:
     std::string valor;
 
-    void validar(const std::string &email);
+    void validar(std::string email);
 
 public:
-    Email() = default;
+    Email(); 
+    Email(std::string email);
+    virtual ~Email();
 
-    /**
-     * Define o valor do e-mail após validar.
-     * Lança std::invalid_argument se o e-mail for inválido.
-     */
-    void setValor(const std::string &email);
-
-    /**
-     * Retorna o e-mail armazenado.
-     */
+    void setValor(std::string email);
     std::string getValor() const;
 };
 

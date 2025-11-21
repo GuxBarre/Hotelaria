@@ -4,11 +4,11 @@
 
 ## Capacidade
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok 
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
@@ -24,11 +24,11 @@
 
 ## Codigo
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok 
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
@@ -44,11 +44,11 @@
 
 ## Dinheiro
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
@@ -74,39 +74,39 @@
 
 ## Nome
 
-**.h:**
+**.h:** ok 
 
-**.cpp:**
+**.cpp:** ok 
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
 ## Numero
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
 ## Ramal
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok 
 
-**Teste na main (FALHA/SUCESSO):**
+**Teste na main (FALHA/SUCESSO):** ok
 
 ------------------------------------------------------------------------
 
 ## Senha
 
-**.h:**
+**.h:** ok
 
-**.cpp:**
+**.cpp:** ok 
 
 **Teste na main (FALHA/SUCESSO):**
 

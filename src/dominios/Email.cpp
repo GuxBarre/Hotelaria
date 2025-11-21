@@ -1,109 +1,124 @@
 #include "Email.h"
-#include <stdexcept>
-#include <cctype>   // std::tolower
+#include <vector> // Útil para separar o domínio em partes, se desejar, ou fazemos manual
 
 using namespace std;
 
-static bool ehLetraMinuscula(char c) {
-    c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
-    return (c >= 'a' && c <= 'z');
+Email::Email() {
+    this->valor = "teste@dominio.com"; // Valor padrão válido
 }
 
-static bool ehDigito(char c) {
-    return (c >= '0' && c <= '9');
+Email::Email(string email) {
+    setValor(email);
 }
 
-void Email::validar(const string &email) {
-    // 1. Tem que ter exatamente um '@' e não pode ser primeiro nem último
+Email::~Email() {
+}
+
+void Email::validar(string email) {
+    // 1. Verificação básica do @
     size_t posArroba = email.find('@');
-    if (posArroba == string::npos || posArroba == 0 || posArroba == email.size() - 1) {
-        throw invalid_argument("Email invalido: formato parte-local@dominio incorreto.");
+    if (posArroba == string::npos || posArroba == 0 || posArroba == email.length() - 1) {
+        throw invalid_argument("Erro: Formato invalido. Deve ser parte-local@dominio.");
     }
+    
+    // Verifica se existe mais de um @
     if (email.find('@', posArroba + 1) != string::npos) {
-        throw invalid_argument("Email invalido: mais de um '@'.");
+        throw invalid_argument("Erro: Email deve ter apenas um '@'.");
     }
 
     string local = email.substr(0, posArroba);
     string dominio = email.substr(posArroba + 1);
 
-    // 2. Tamanhos
-    if (local.size() == 0 || local.size() > 64) {
-        throw invalid_argument("Email invalido: tamanho da parte local invalido.");
-    }
-    if (dominio.size() == 0 || dominio.size() > 255) {
-        throw invalid_argument("Email invalido: tamanho do dominio invalido.");
+    // 2. Validação da Parte Local
+    if (local.length() > 64) {
+        throw invalid_argument("Erro: Parte local excede 64 caracteres.");
     }
 
-    // 3. Validar parte local
-    //    letras (a-z), digitos (0-9), ponto (.) ou hifen (-)
-    //    nao pode iniciar/terminar com '.' ou '-'
-    //    '.' ou '-' deve ser seguido por letra ou digito
-    if (local.front() == '.' || local.front() == '-' ||
-        local.back()  == '.' || local.back()  == '-') {
-        throw invalid_argument("Email invalido: parte local começa/termina com '.' ou '-'.");
+    // Regra: Não pode iniciar ou terminar com . ou -
+    if (local.front() == '.' || local.front() == '-' || 
+        local.back() == '.' || local.back() == '-') {
+        throw invalid_argument("Erro: Parte local nao pode iniciar ou terminar com ponto ou hifen.");
     }
 
-    for (size_t i = 0; i < local.size(); ++i) {
+    for (size_t i = 0; i < local.length(); i++) {
         char c = local[i];
+        
+        // Validar caracteres permitidos (a-z, 0-9, ., -)
+        // Nota: A regra pede a-z (minusculas), entao checamos o intervalo ASCII
+        bool ehLetra = (c >= 'a' && c <= 'z');
+        bool ehDigito = (c >= '0' && c <= '9');
+        bool ehPonto = (c == '.');
+        bool ehHifen = (c == '-');
 
-        bool okChar = ehLetraMinuscula(c) || ehDigito(c) || c == '.' || c == '-';
-        if (!okChar) {
-            throw invalid_argument("Email invalido: caractere invalido na parte local.");
+        if (!ehLetra && !ehDigito && !ehPonto && !ehHifen) {
+            throw invalid_argument("Erro: Caractere invalido na parte local.");
         }
 
-        if (c == '.' || c == '-') {
-            if (i + 1 >= local.size()) {
-                throw invalid_argument("Email invalido: '.' ou '-' na parte local no final.");
-            }
-            char prox = local[i + 1];
-            if (!ehLetraMinuscula(prox) && !ehDigito(prox)) {
-                // impede '..', '.-', '--', '-.' etc.
-                throw invalid_argument("Email invalido: '.' ou '-' deve ser seguido de letra ou digito na parte local.");
+        // Regra: Ponto ou hifen deve ser seguido por letra ou digito
+        if (ehPonto || ehHifen) {
+            if (i + 1 < local.length()) {
+                char prox = local[i+1];
+                bool proxLetra = (prox >= 'a' && prox <= 'z');
+                bool proxDigito = (prox >= '0' && prox <= '9');
+                
+                if (!proxLetra && !proxDigito) {
+                    throw invalid_argument("Erro: Ponto ou hifen deve ser seguido por letra ou digito.");
+                }
             }
         }
     }
 
-    // 4. Validar dominio
-    //    composto por uma ou mais partes separadas por '.'
-    //    cada parte: letras (a-z), digitos (0-9) ou hifen (-)
-    //    nao pode iniciar/terminar com hifen
-    //    e nao pode ter partes vazias (ou seja, "algo..com" invalido)
+    // 3. Validação do Domínio
+    if (dominio.length() > 255) {
+        throw invalid_argument("Erro: Dominio excede 255 caracteres.");
+    }
+    
+    // Regra: Domínio não pode ter partes vazias (ex: ..) ou começar/terminar com ponto
     if (dominio.front() == '.' || dominio.back() == '.') {
-        throw invalid_argument("Email invalido: dominio nao pode comecar/terminar com '.'.");
+        throw invalid_argument("Erro: Dominio nao pode iniciar ou terminar com ponto.");
     }
 
-    size_t inicio = 0;
-    while (inicio < dominio.size()) {
-        size_t ponto = dominio.find('.', inicio);
-        if (ponto == string::npos) {
-            ponto = dominio.size();
+    // Percorrer o domínio para validar caracteres e pontos consecutivos
+    size_t inicioParte = 0;
+    size_t posPonto = dominio.find('.', inicioParte);
+
+    while (inicioParte < dominio.length()) {
+        // Se não achar mais pontos, define o fim como o final da string
+        size_t fimParte = (posPonto == string::npos) ? dominio.length() : posPonto;
+        
+        // Extrai a parte atual (ex: "gmail" de "gmail.com")
+        string parte = dominio.substr(inicioParte, fimParte - inicioParte);
+
+        if (parte.empty()) {
+            throw invalid_argument("Erro: Dominio contem partes vazias (pontos consecutivos).");
         }
 
-        // pedaço do dominio entre dois pontos
-        if (ponto == inicio) {
-            throw invalid_argument("Email invalido: partes vazias no dominio.");
-        }
-
-        string parte = dominio.substr(inicio, ponto - inicio);
-
-        // nao pode comecar/terminar com '-'
+        // Regra: Parte não pode iniciar ou terminar com hífen
         if (parte.front() == '-' || parte.back() == '-') {
-            throw invalid_argument("Email invalido: parte do dominio comeca/termina com '-'.");
+            throw invalid_argument("Erro: Parte do dominio nao pode iniciar ou terminar com hifen.");
         }
 
+        // Valida caracteres da parte
         for (char c : parte) {
-            bool okChar = ehLetraMinuscula(c) || ehDigito(c) || c == '-';
-            if (!okChar) {
-                throw invalid_argument("Email invalido: caractere invalido no dominio.");
+            bool ehLetra = (c >= 'a' && c <= 'z');
+            bool ehDigito = (c >= '0' && c <= '9');
+            bool ehHifen = (c == '-');
+
+            if (!ehLetra && !ehDigito && !ehHifen) {
+                throw invalid_argument("Erro: Caractere invalido no dominio.");
             }
         }
 
-        if (ponto == dominio.size()) break;
-        inicio = ponto + 1; // pula o '.'
+        // Prepara para a próxima iteração
+        if (posPonto == string::npos) {
+            break;
+        }
+        inicioParte = posPonto + 1;
+        posPonto = dominio.find('.', inicioParte);
     }
 }
 
-void Email::setValor(const string &email) {
+void Email::setValor(string email) {
     validar(email);
     this->valor = email;
 }

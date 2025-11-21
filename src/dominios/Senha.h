@@ -2,28 +2,30 @@
 #define SENHA_H
 
 #include <string>
+#include <stdexcept>
+#include <iostream>
 
-/**
- * Classe de domínio para representar uma senha válida.
- */
+// Domínio: Senha
+// Regras:
+// 1. Exatamente 5 caracteres.
+// 2. Caracteres permitidos: Letras (A-Z, a-z), Dígitos (0-9), Especiais (! " # $ % & ?).
+// 3. Não pode haver letras consecutivas.
+// 4. Não pode haver dígitos consecutivos.
+// 5. Deve conter pelo menos: 1 maiúscula, 1 minúscula, 1 dígito, 1 especial.
+
 class Senha {
 private:
     std::string valor;
 
-    void validar(const std::string &senha);
+    // Método auxiliar de validação
+    void validar(std::string senha);
 
 public:
-    Senha() = default;
+    Senha(); // Construtor padrão
+    Senha(std::string senha); // Construtor de inicialização
+    virtual ~Senha();
 
-    /**
-     * Define o valor da senha após validar.
-     * Lança std::invalid_argument se a senha for inválida.
-     */
-    void setValor(const std::string &senha);
-
-    /**
-     * Retorna a senha armazenada.
-     */
+    void setValor(std::string senha);
     std::string getValor() const;
 };
 

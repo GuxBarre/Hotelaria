@@ -1,82 +1,78 @@
 #include "Senha.h"
-#include <stdexcept>
-#include <cctype>
+#include <cctype> // Necessário para isupper, islower, isdigit, isalpha
 
 using namespace std;
 
-static bool ehLetraMinuscula(char c) {
-    return std::islower(static_cast<unsigned char>(c));
+Senha::Senha() {
+    this->valor = "A1b%2"; // Valor padrão que atende a todas as regras
 }
 
-static bool ehLetraMaiuscula(char c) {
-    return std::isupper(static_cast<unsigned char>(c));
+Senha::Senha(string senha) {
+    setValor(senha);
 }
 
-static bool ehDigito(char c) {
-    return std::isdigit(static_cast<unsigned char>(c));
+Senha::~Senha() {
 }
 
-static bool ehEspecial(char c) {
-    // caracteres especiais permitidos
-    const string especiais = "!\"#$%&?";
-    return especiais.find(c) != string::npos;
-}
-
-void Senha::validar(const string &senha) {
-    // 1. Tamanho exato
-    if (senha.size() != 5) {
-        throw invalid_argument("Senha invalida: deve ter exatamente 5 caracteres.");
+void Senha::validar(string senha) {
+    // 1. Validação de Tamanho
+    if (senha.length() != 5) {
+        throw invalid_argument("Erro: Senha deve ter exatamente 5 caracteres.");
     }
 
-    bool temMinuscula = false;
     bool temMaiuscula = false;
-    bool temDigito    = false;
-    bool temEspecial  = false;
+    bool temMinuscula = false;
+    bool temDigito = false;
+    bool temEspecial = false;
+    
+    const string especiaisPermitidos = "!\"#$%&?";
 
-    for (size_t i = 0; i < senha.size(); ++i) {
+    for (size_t i = 0; i < senha.length(); i++) {
         char c = senha[i];
 
-        bool ehLetra = ehLetraMinuscula(c) || ehLetraMaiuscula(c);
-        bool ehNum   = ehDigito(c);
-        bool ehEsp   = ehEspecial(c);
+        // Identificação do tipo de caractere
+        bool ehMaiuscula = isupper(c);
+        bool ehMinuscula = islower(c);
+        bool ehDigito = isdigit(c);
+        // Verifica se o char existe na string de especiais permitidos
+        bool ehEspecial = (especiaisPermitidos.find(c) != string::npos);
 
-        // 2. Só pode ser letra, digito ou especial permitido
-        if (!ehLetra && !ehNum && !ehEsp) {
-            throw invalid_argument("Senha invalida: caractere nao permitido.");
+        // 2. Validação de Caractere Inválido
+        if (!ehMaiuscula && !ehMinuscula && !ehDigito && !ehEspecial) {
+            throw invalid_argument("Erro: Senha contem caractere invalido.");
         }
 
-        // 3. Regras de nao repetir tipo consecutivo:
-        //    letra nao pode vir depois de letra
-        //    digito nao pode vir depois de digito
+        // Atualiza as flags de presença
+        if (ehMaiuscula) temMaiuscula = true;
+        if (ehMinuscula) temMinuscula = true;
+        if (ehDigito) temDigito = true;
+        if (ehEspecial) temEspecial = true;
+
+        // 3. Validação de Consecutivos
         if (i > 0) {
-            char ant = senha[i - 1];
-            bool antLetra = std::isalpha(static_cast<unsigned char>(ant));
-            bool antNum   = std::isdigit(static_cast<unsigned char>(ant));
-
-            if (antLetra && ehLetra) {
-                throw invalid_argument("Senha invalida: duas letras consecutivas.");
+            char anterior = senha[i-1];
+            
+            // Letra seguida de letra (seja maiúscula ou minúscula)
+            if (isalpha(anterior) && isalpha(c)) {
+                throw invalid_argument("Erro: Senha nao pode ter letras consecutivas.");
             }
-            if (antNum && ehNum) {
-                throw invalid_argument("Senha invalida: dois digitos consecutivos.");
+
+            // Dígito seguido de dígito
+            if (isdigit(anterior) && isdigit(c)) {
+                throw invalid_argument("Erro: Senha nao pode ter digitos consecutivos.");
             }
         }
-
-        // 4. Marcar presença dos tipos
-        if (ehLetraMinuscula(c)) temMinuscula = true;
-        if (ehLetraMaiuscula(c)) temMaiuscula = true;
-        if (ehNum)               temDigito    = true;
-        if (ehEsp)               temEspecial  = true;
     }
 
-    // 5. Precisa ter pelo menos 1 de cada tipo
-    if (!temMinuscula || !temMaiuscula || !temDigito || !temEspecial) {
-        throw invalid_argument("Senha invalida: precisa de minuscula, maiuscula, digito e especial.");
+    // 4. Validação de Completude (Pelo menos um de cada tipo)
+    if (!temMaiuscula || !temMinuscula || !temDigito || !temEspecial) {
+        throw invalid_argument("Erro: Senha deve conter pelo menos uma maiuscula, uma minuscula, um digito e um especial.");
     }
 }
 
-void Senha::setValor(const string &senha) {
+void Senha::setValor(string senha) {
     validar(senha);
-    valor = senha;
+    this->valor = senha;
 }
 
 string Senha::getValor() const {
