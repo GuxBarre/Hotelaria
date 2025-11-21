@@ -1,0 +1,123 @@
+\hypertarget{classCapacidade}{}\doxysection{Referência à classe Capacidade}
+\label{classCapacidade}\index{Capacidade@{Capacidade}}
+
+
+Representa o domínio de capacidade de acomodação de um quarto.  
+
+
+
+
+{\ttfamily \#include $<$Capacidade.\+h$>$}
+
+
+
+Diagrama de colaboração para Capacidade\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classCapacidade__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCapacidade_a57b7bf0281a6d12c3a4d08e07ee1a160}\label{classCapacidade_a57b7bf0281a6d12c3a4d08e07ee1a160}} 
+\mbox{\hyperlink{classCapacidade_a57b7bf0281a6d12c3a4d08e07ee1a160}{Capacidade}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa a capacidade com um valor padrão (0). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCapacidade_a0cc99b6839a11a06de61b399d9c3da9f}{Capacidade}} (int valor)
+\begin{DoxyCompactList}\small\item\em Construtor com inicialização de valor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCapacidade_a796f752d7f6b4cf322577e4e89a896e0}{set\+Valor}} (int valor)
+\begin{DoxyCompactList}\small\item\em Define o valor da capacidade. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCapacidade_acc30fd56150d5569a426096521ac53c5}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o valor armazenado da capacidade. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de capacidade de acomodação de um quarto. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Esta classe armazena e valida a capacidade de hóspedes. De acordo com as regras de negócio, o formato válido aceita apenas\+:
+\begin{DoxyItemize}
+\item 1, 2, 3 ou 4 pessoas.
+\item Qualquer valor fora deste conjunto é considerado inválido. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classCapacidade_a0cc99b6839a11a06de61b399d9c3da9f}\label{classCapacidade_a0cc99b6839a11a06de61b399d9c3da9f}} 
+\index{Capacidade@{Capacidade}!Capacidade@{Capacidade}}
+\index{Capacidade@{Capacidade}!Capacidade@{Capacidade}}
+\doxysubsubsection{\texorpdfstring{Capacidade()}{Capacidade()}}
+{\footnotesize\ttfamily Capacidade\+::\+Capacidade (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor com inicialização de valor. 
+
+
+\begin{DoxyItemize}
+\item Inicializa a instância já validando o valor fornecido.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro representando a capacidade (1, 2, 3 ou 4). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor fornecido for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classCapacidade_acc30fd56150d5569a426096521ac53c5}\label{classCapacidade_acc30fd56150d5569a426096521ac53c5}} 
+\index{Capacidade@{Capacidade}!getValor@{getValor}}
+\index{getValor@{getValor}!Capacidade@{Capacidade}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily int Capacidade\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o valor armazenado da capacidade. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+int O valor atual da capacidade. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classCapacidade_a796f752d7f6b4cf322577e4e89a896e0}\label{classCapacidade_a796f752d7f6b4cf322577e4e89a896e0}} 
+\index{Capacidade@{Capacidade}!setValor@{setValor}}
+\index{setValor@{setValor}!Capacidade@{Capacidade}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Capacidade\+::set\+Valor (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Define o valor da capacidade. 
+
+
+\begin{DoxyItemize}
+\item Este método valida o valor antes de armazená-\/lo. Se o valor for inválido, o atributo não é modificado e uma exceção é lançada.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro representando a capacidade (1 a 4). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor for menor que 1 ou maior que 4. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Capacidade.\+h\item 
+src/dominios/Capacidade.\+cpp\end{DoxyCompactItemize}

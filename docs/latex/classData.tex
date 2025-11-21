@@ -1,0 +1,121 @@
+\hypertarget{classData}{}\doxysection{Referência à classe Data}
+\label{classData}\index{Data@{Data}}
+
+
+Classe para representação e validação de datas.  
+
+
+
+
+{\ttfamily \#include $<$Data.\+h$>$}
+
+
+
+Diagrama de colaboração para Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classData__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classData_af11f741cb7f587e2e495452a8905a22a}{Data}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa a data com valores padrão (ex\+: data atual ou vazia). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classData_a380f6a49cbb91cef5ffcdd8abef1e2b1}{Data}} (const std\+::string \&data\+Str)
+\begin{DoxyCompactList}\small\item\em Construtor que inicializa a data a partir de uma string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classData_ac67b9cd4a80b1abff9ebc313fd50c565}{set\+Data}} (const std\+::string \&data\+Str)
+\begin{DoxyCompactList}\small\item\em Define uma nova data a partir de uma string. Valida e atualiza os campos internos. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classData_acd4232450f7309d712a660bee13f78d5}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Retorna a data formatada como string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Classe para representação e validação de datas. 
+
+
+\begin{DoxyItemize}
+\item Armazena internamente a data em inteiros (dia, mês, ano), mas permite a manipulação via string (geralmente no formato D\+D/\+M\+M/\+A\+A\+AA ou similar). 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classData_af11f741cb7f587e2e495452a8905a22a}\label{classData_af11f741cb7f587e2e495452a8905a22a}} 
+\index{Data@{Data}!Data@{Data}}
+\index{Data@{Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{Data()}{Data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Data\+::\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construtor padrão. Inicializa a data com valores padrão (ex\+: data atual ou vazia). 
+
+Construtor padrão. \mbox{\Hypertarget{classData_a380f6a49cbb91cef5ffcdd8abef1e2b1}\label{classData_a380f6a49cbb91cef5ffcdd8abef1e2b1}} 
+\index{Data@{Data}!Data@{Data}}
+\index{Data@{Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{Data()}{Data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Data\+::\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data\+Str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor que inicializa a data a partir de uma string. 
+
+Construtor via string.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em data\+Str} & String contendo a data formatada. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classData_acd4232450f7309d712a660bee13f78d5}\label{classData_acd4232450f7309d712a660bee13f78d5}} 
+\index{Data@{Data}!getData@{getData}}
+\index{getData@{getData}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily std\+::string Data\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retorna a data formatada como string. 
+
+Getter formatado.
+
+\begin{DoxyReturn}{Retorna}
+std\+::string A data no formato padrão da classe (ex\+: \char`\"{}\+D\+D/\+M\+M/\+A\+A\+A\+A\char`\"{}). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classData_ac67b9cd4a80b1abff9ebc313fd50c565}\label{classData_ac67b9cd4a80b1abff9ebc313fd50c565}} 
+\index{Data@{Data}!setData@{setData}}
+\index{setData@{setData}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily void Data\+::set\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data\+Str }\end{DoxyParamCaption})}
+
+
+
+Define uma nova data a partir de uma string. Valida e atualiza os campos internos. 
+
+Setter principal. Faz o parsing da string \char`\"{}\+D\+D/\+M\+M/\+A\+A\+A\+A\char`\"{} e valida.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em data\+Str} & String contendo a nova data. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se a data for inválida. \\
+\hline
+\end{DoxyExceptions}
+
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Data.\+h\item 
+src/dominios/Data.\+cpp\end{DoxyCompactItemize}

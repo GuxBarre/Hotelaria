@@ -1,0 +1,124 @@
+\hypertarget{classDinheiro}{}\doxysection{Referência à classe Dinheiro}
+\label{classDinheiro}\index{Dinheiro@{Dinheiro}}
+
+
+Representa o domínio de valores monetários.  
+
+
+
+
+{\ttfamily \#include $<$Dinheiro.\+h$>$}
+
+
+
+Diagrama de colaboração para Dinheiro\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{classDinheiro__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDinheiro_a7529ac8a24b2cca107c06abe1a9d1f74}\label{classDinheiro_a7529ac8a24b2cca107c06abe1a9d1f74}} 
+\mbox{\hyperlink{classDinheiro_a7529ac8a24b2cca107c06abe1a9d1f74}{Dinheiro}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com valor 0. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDinheiro_a31359aec012f007a5c7a6ee756236b4f}{Dinheiro}} (double valor)
+\begin{DoxyCompactList}\small\item\em Construtor que inicializa com um valor em ponto flutuante. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDinheiro_a3710756212ee545b52e19342c11627a3}{set\+Valor}} (double valor)
+\begin{DoxyCompactList}\small\item\em Define o valor monetário. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDinheiro_a8fe20cb2244f9fc2b5dc843646f9e717}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o valor monetário. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de valores monetários. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item Valor deve estar entre 0,01 e 1.\+000.\+000,00.
+\item O armazenamento deve ser realizado em número inteiro (centavos) para evitar erros de arredondamento. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classDinheiro_a31359aec012f007a5c7a6ee756236b4f}\label{classDinheiro_a31359aec012f007a5c7a6ee756236b4f}} 
+\index{Dinheiro@{Dinheiro}!Dinheiro@{Dinheiro}}
+\index{Dinheiro@{Dinheiro}!Dinheiro@{Dinheiro}}
+\doxysubsubsection{\texorpdfstring{Dinheiro()}{Dinheiro()}}
+{\footnotesize\ttfamily Dinheiro\+::\+Dinheiro (\begin{DoxyParamCaption}\item[{double}]{valor }\end{DoxyParamCaption})}
+
+
+
+Construtor que inicializa com um valor em ponto flutuante. 
+
+
+\begin{DoxyItemize}
+\item Converte o valor double para centavos e valida.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Valor monetário (ex\+: 100.\+50). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor estiver fora da faixa permitida. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classDinheiro_a8fe20cb2244f9fc2b5dc843646f9e717}\label{classDinheiro_a8fe20cb2244f9fc2b5dc843646f9e717}} 
+\index{Dinheiro@{Dinheiro}!getValor@{getValor}}
+\index{getValor@{getValor}!Dinheiro@{Dinheiro}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily double Dinheiro\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o valor monetário. 
+
+
+\begin{DoxyItemize}
+\item Converte o valor interno (centavos) de volta para double.
+\item \begin{DoxyReturn}{Retorna}
+double O valor monetário. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classDinheiro_a3710756212ee545b52e19342c11627a3}\label{classDinheiro_a3710756212ee545b52e19342c11627a3}} 
+\index{Dinheiro@{Dinheiro}!setValor@{setValor}}
+\index{setValor@{setValor}!Dinheiro@{Dinheiro}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Dinheiro\+::set\+Valor (\begin{DoxyParamCaption}\item[{double}]{valor }\end{DoxyParamCaption})}
+
+
+
+Define o valor monetário. 
+
+
+\begin{DoxyItemize}
+\item Realiza a conversão de double para representação interna em centavos e valida as regras de negócio.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Valor monetário (ex\+: 100.\+50). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor for menor que 0,01 ou maior que 1.\+000.\+000,00. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Dinheiro.\+h\item 
+src/dominios/Dinheiro.\+cpp\end{DoxyCompactItemize}

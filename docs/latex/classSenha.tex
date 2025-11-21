@@ -1,0 +1,126 @@
+\hypertarget{classSenha}{}\doxysection{Referência à classe Senha}
+\label{classSenha}\index{Senha@{Senha}}
+
+
+Representa o domínio de senha para autenticação de gerentes.  
+
+
+
+
+{\ttfamily \#include $<$Senha.\+h$>$}
+
+
+
+Diagrama de colaboração para Senha\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classSenha__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSenha_ade5ef5c7f37a1dd7a3bea575fb745a46}\label{classSenha_ade5ef5c7f37a1dd7a3bea575fb745a46}} 
+\mbox{\hyperlink{classSenha_ade5ef5c7f37a1dd7a3bea575fb745a46}{Senha}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com estado vazio. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSenha_a84733dabc7c91c63b330cf4cd890fb08}{Senha}} (std\+::string senha)
+\begin{DoxyCompactList}\small\item\em Construtor de inicialização. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSenha_a86be4306407eb5677dbba00c1b2c6ac2}{set\+Valor}} (std\+::string senha)
+\begin{DoxyCompactList}\small\item\em Define a senha. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSenha_ae0b4d9dfac80da4dc9c4965a9648e6b5}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera a senha armazenada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de senha para autenticação de gerentes. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item {\bfseries{Tamanho}}\+: Exatamente 5 caracteres.
+\item {\bfseries{Caracteres permitidos}}\+: Letras (A-\/Z, a-\/z), dígitos (0-\/9) e caracteres especiais (! " \# \$ \% \& ?).
+\item {\bfseries{Regras de Sequência}}\+:
+\item Letra não pode ser seguida por letra.
+\item Dígito não pode ser seguido por dígito.
+\item {\bfseries{Regras de Composição}}\+: Deve conter pelo menos uma letra maiúscula, uma letra minúscula, um dígito e um caractere especial. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classSenha_a84733dabc7c91c63b330cf4cd890fb08}\label{classSenha_a84733dabc7c91c63b330cf4cd890fb08}} 
+\index{Senha@{Senha}!Senha@{Senha}}
+\index{Senha@{Senha}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{Senha()}{Senha()}}
+{\footnotesize\ttfamily Senha\+::\+Senha (\begin{DoxyParamCaption}\item[{std\+::string}]{senha }\end{DoxyParamCaption})}
+
+
+
+Construtor de inicialização. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em senha} & String da senha. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se a senha for inválida. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classSenha_ae0b4d9dfac80da4dc9c4965a9648e6b5}\label{classSenha_ae0b4d9dfac80da4dc9c4965a9648e6b5}} 
+\index{Senha@{Senha}!getValor@{getValor}}
+\index{getValor@{getValor}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily string Senha\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera a senha armazenada. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+std\+::string A senha atual. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classSenha_a86be4306407eb5677dbba00c1b2c6ac2}\label{classSenha_a86be4306407eb5677dbba00c1b2c6ac2}} 
+\index{Senha@{Senha}!setValor@{setValor}}
+\index{setValor@{setValor}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Senha\+::set\+Valor (\begin{DoxyParamCaption}\item[{std\+::string}]{senha }\end{DoxyParamCaption})}
+
+
+
+Define a senha. 
+
+
+\begin{DoxyItemize}
+\item Executa a validação completa antes de armazenar.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em senha} & String com 5 caracteres atendendo a todos os critérios de segurança. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Em caso de violação de qualquer regra de validação. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Senha.\+h\item 
+src/dominios/Senha.\+cpp\end{DoxyCompactItemize}

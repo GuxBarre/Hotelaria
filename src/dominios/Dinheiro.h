@@ -4,25 +4,60 @@
 #include <stdexcept>
 #include <iostream>
 
-// Domínio: Dinheiro
-// Regras: 
-// 1. Valor entre 0,01 e 1.000.000,00
-// 2. Armazenamento interno em INTEIRO (centavos)
-
+/**
+ * @class Dinheiro
+ * @brief Representa o domínio de valores monetários.
+ * * @details
+ * Regras de formato válido conforme especificação:
+ * - Valor deve estar entre 0,01 e 1.000.000,00.
+ * - O armazenamento deve ser realizado em número inteiro (centavos) para evitar erros de arredondamento.
+ */
 class Dinheiro {
 private:
-    long long valorCentavos; // Usamos long long para garantir espaço, embora int servisse.
+    /**
+     * @brief Armazena o valor em centavos.
+     * * Utiliza long long para garantir capacidade, atendendo ao requisito de armazenamento inteiro.
+     */
+    long long valorCentavos; 
     
-    // Método auxiliar para validar as regras
+    /**
+     * @brief Valida se o valor em centavos está na faixa permitida.
+     * * @param valor O valor em centavos a ser validado.
+     * @throw std::invalid_argument Se o valor estiver fora do intervalo de 1 a 100.000.000 (correspondente a 0,01 - 1.000.000,00).
+     */
     void validar(long long valor);
 
 public:
-    Dinheiro(); // Construtor padrão
-    Dinheiro(double valor); // Construtor de inicialização
+    /**
+     * @brief Construtor padrão.
+     * Inicializa o objeto com valor 0.
+     */
+    Dinheiro(); 
+
+    /**
+     * @brief Construtor que inicializa com um valor em ponto flutuante.
+     * * Converte o valor double para centavos e valida.
+     * * @param valor Valor monetário (ex: 100.50).
+     * @throw std::invalid_argument Se o valor estiver fora da faixa permitida.
+     */
+    Dinheiro(double valor); 
+    
     virtual ~Dinheiro();
 
+    /**
+     * @brief Define o valor monetário.
+     * * Realiza a conversão de double para representação interna em centavos e valida as regras de negócio.
+     * * @param valor Valor monetário (ex: 100.50).
+     * @throw std::invalid_argument Se o valor for menor que 0,01 ou maior que 1.000.000,00.
+     */
     void setValor(double valor);
-    double getValor() const; // Retorna double para uso externo, mas converte do inteiro interno
+
+    /**
+     * @brief Recupera o valor monetário.
+     * * Converte o valor interno (centavos) de volta para double.
+     * * @return double O valor monetário.
+     */
+    double getValor() const; 
 };
 
 #endif // DINHEIRO_H

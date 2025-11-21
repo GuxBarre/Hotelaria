@@ -1,0 +1,122 @@
+\hypertarget{classNumero}{}\doxysection{Referência à classe Numero}
+\label{classNumero}\index{Numero@{Numero}}
+
+
+Representa o domínio de número de quarto.  
+
+
+
+
+{\ttfamily \#include $<$Numero.\+h$>$}
+
+
+
+Diagrama de colaboração para Numero\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classNumero__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNumero_ab065dd444840a95371b1d7fdc7fbd491}\label{classNumero_ab065dd444840a95371b1d7fdc7fbd491}} 
+\mbox{\hyperlink{classNumero_ab065dd444840a95371b1d7fdc7fbd491}{Numero}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com um estado padrão. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNumero_ac2f2ef7879fc7475c818288a6d44248a}{Numero}} (int valor)
+\begin{DoxyCompactList}\small\item\em Construtor de inicialização. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNumero_a836200e8bd04882bc7ea2f5bc5d7beef}{set\+Valor}} (int valor)
+\begin{DoxyCompactList}\small\item\em Define o número do quarto. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classNumero_a64bbe311f1537d8c40294fb201e34bf4}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o número armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de número de quarto. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item Deve ser um valor inteiro.
+\item Intervalo permitido\+: 1 a 999 (inclusive). 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classNumero_ac2f2ef7879fc7475c818288a6d44248a}\label{classNumero_ac2f2ef7879fc7475c818288a6d44248a}} 
+\index{Numero@{Numero}!Numero@{Numero}}
+\index{Numero@{Numero}!Numero@{Numero}}
+\doxysubsubsection{\texorpdfstring{Numero()}{Numero()}}
+{\footnotesize\ttfamily Numero\+::\+Numero (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Construtor de inicialização. 
+
+
+\begin{DoxyItemize}
+\item Já instancia o objeto validando o número fornecido.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro representando o número do quarto. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor estiver fora do intervalo de 1 a 999. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classNumero_a64bbe311f1537d8c40294fb201e34bf4}\label{classNumero_a64bbe311f1537d8c40294fb201e34bf4}} 
+\index{Numero@{Numero}!getValor@{getValor}}
+\index{getValor@{getValor}!Numero@{Numero}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily int Numero\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o número armazenado. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+int O número do quarto. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classNumero_a836200e8bd04882bc7ea2f5bc5d7beef}\label{classNumero_a836200e8bd04882bc7ea2f5bc5d7beef}} 
+\index{Numero@{Numero}!setValor@{setValor}}
+\index{setValor@{setValor}!Numero@{Numero}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Numero\+::set\+Valor (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Define o número do quarto. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro entre 1 e 999. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor violar a regra de intervalo. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Numero.\+h\item 
+src/dominios/Numero.\+cpp\end{DoxyCompactItemize}

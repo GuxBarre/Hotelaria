@@ -1,0 +1,123 @@
+\hypertarget{classEmail}{}\doxysection{Referência à classe Email}
+\label{classEmail}\index{Email@{Email}}
+
+
+Representa o domínio de endereço de e-\/mail.  
+
+
+
+
+{\ttfamily \#include $<$Email.\+h$>$}
+
+
+
+Diagrama de colaboração para Email\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classEmail__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classEmail_a2cfcfea1e55511208e7858c33f48ad9d}\label{classEmail_a2cfcfea1e55511208e7858c33f48ad9d}} 
+\mbox{\hyperlink{classEmail_a2cfcfea1e55511208e7858c33f48ad9d}{Email}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com estado vazio. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classEmail_add6daec5f0936cf8e6f74dbbf0be79d6}{Email}} (std\+::string email)
+\begin{DoxyCompactList}\small\item\em Construtor de inicialização. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEmail_a977f5c0ddf88aea9e00b9d2589d7edee}{set\+Valor}} (std\+::string email)
+\begin{DoxyCompactList}\small\item\em Define o endereço de e-\/mail. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classEmail_a573b7a1f21085bbb13cf6ec4dd802ecc}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o endereço de e-\/mail armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de endereço de e-\/mail. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido\+:
+\begin{DoxyItemize}
+\item Formato\+: parte-\/local@domínio.
+\item {\bfseries{Parte local}}\+: Até 64 caracteres. Pode conter letra (a-\/z), dígito (0-\/9), ponto (.) ou hífen (-\/). Não pode iniciar ou terminar com ponto ou hífen. Ponto ou hífen deve ser seguido por letra ou dígito.
+\item {\bfseries{Domínio}}\+: Até 255 caracteres. Composto por partes separadas por ponto (.). Cada parte pode conter letra (a-\/z), dígito (0-\/9) ou hífen (-\/). Não pode iniciar ou terminar com hífen. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classEmail_add6daec5f0936cf8e6f74dbbf0be79d6}\label{classEmail_add6daec5f0936cf8e6f74dbbf0be79d6}} 
+\index{Email@{Email}!Email@{Email}}
+\index{Email@{Email}!Email@{Email}}
+\doxysubsubsection{\texorpdfstring{Email()}{Email()}}
+{\footnotesize\ttfamily Email\+::\+Email (\begin{DoxyParamCaption}\item[{std\+::string}]{email }\end{DoxyParamCaption})}
+
+
+
+Construtor de inicialização. 
+
+
+\begin{DoxyItemize}
+\item Já realiza a validação do e-\/mail fornecido na criação do objeto.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em email} & String contendo o endereço de e-\/mail. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classEmail_a573b7a1f21085bbb13cf6ec4dd802ecc}\label{classEmail_a573b7a1f21085bbb13cf6ec4dd802ecc}} 
+\index{Email@{Email}!getValor@{getValor}}
+\index{getValor@{getValor}!Email@{Email}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily string Email\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o endereço de e-\/mail armazenado. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+std\+::string O e-\/mail atual. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classEmail_a977f5c0ddf88aea9e00b9d2589d7edee}\label{classEmail_a977f5c0ddf88aea9e00b9d2589d7edee}} 
+\index{Email@{Email}!setValor@{setValor}}
+\index{setValor@{setValor}!Email@{Email}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Email\+::set\+Valor (\begin{DoxyParamCaption}\item[{std\+::string}]{email }\end{DoxyParamCaption})}
+
+
+
+Define o endereço de e-\/mail. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em email} & String contendo o e-\/mail no formato parte-\/local@domínio. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido (ex\+: exceder 64 caracteres na parte local ou 255 no domínio). \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Email.\+h\item 
+src/dominios/Email.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,121 @@
+\hypertarget{classRamal}{}\doxysection{Referência à classe Ramal}
+\label{classRamal}\index{Ramal@{Ramal}}
+
+
+Representa o domínio de \mbox{\hyperlink{classRamal}{Ramal}} telefônico.  
+
+
+
+
+{\ttfamily \#include $<$Ramal.\+h$>$}
+
+
+
+Diagrama de colaboração para Ramal\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classRamal__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRamal_a88ed9618cedeeeed32d8240ace22c329}\label{classRamal_a88ed9618cedeeeed32d8240ace22c329}} 
+\mbox{\hyperlink{classRamal_a88ed9618cedeeeed32d8240ace22c329}{Ramal}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com um estado padrão. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRamal_af6fe770e7771ab1dfa0e3819dd31c8ee}{Ramal}} (int valor)
+\begin{DoxyCompactList}\small\item\em Construtor de inicialização. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRamal_a9b2b4d61174e2e5715fe05404b50e07c}{set\+Valor}} (int valor)
+\begin{DoxyCompactList}\small\item\em Define o número do ramal. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classRamal_afd790b4b8c932c2b351fed696cc8da81}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o número do ramal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de \mbox{\hyperlink{classRamal}{Ramal}} telefônico. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item Deve ser um número inteiro.
+\item Intervalo permitido\+: 0 a 50 (inclusive). 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classRamal_af6fe770e7771ab1dfa0e3819dd31c8ee}\label{classRamal_af6fe770e7771ab1dfa0e3819dd31c8ee}} 
+\index{Ramal@{Ramal}!Ramal@{Ramal}}
+\index{Ramal@{Ramal}!Ramal@{Ramal}}
+\doxysubsubsection{\texorpdfstring{Ramal()}{Ramal()}}
+{\footnotesize\ttfamily Ramal\+::\+Ramal (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Construtor de inicialização. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro representando o ramal. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor estiver fora do intervalo de 0 a 50. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classRamal_afd790b4b8c932c2b351fed696cc8da81}\label{classRamal_afd790b4b8c932c2b351fed696cc8da81}} 
+\index{Ramal@{Ramal}!getValor@{getValor}}
+\index{getValor@{getValor}!Ramal@{Ramal}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily int Ramal\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o número do ramal. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+int O valor do ramal. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classRamal_a9b2b4d61174e2e5715fe05404b50e07c}\label{classRamal_a9b2b4d61174e2e5715fe05404b50e07c}} 
+\index{Ramal@{Ramal}!setValor@{setValor}}
+\index{setValor@{setValor}!Ramal@{Ramal}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Ramal\+::set\+Valor (\begin{DoxyParamCaption}\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Define o número do ramal. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & Inteiro entre 0 e 50. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o valor violar a regra de intervalo. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Ramal.\+h\item 
+src/dominios/Ramal.\+cpp\end{DoxyCompactItemize}

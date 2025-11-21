@@ -1,0 +1,53 @@
+Este projeto consiste no desenvolvimento de um sistema de software para facilitar a gestão de pequenos hotéis. O sistema foi desenvolvido em C++ seguindo o paradigma de Orientação a Objetos e uma arquitetura em camadas, conforme especificado nos requisitos da disciplina de Técnicas de Programação 1.\hypertarget{md_README_autotoc_md26}{}\doxysection{Arquitetura do Sistema}\label{md_README_autotoc_md26}
+O software segue o estilo de arquitetura em camadas, dividido em\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Camada de Apresentação\+:}} Responsável pela interface com o usuário e validação dos dados de entrada.
+\item {\bfseries{Camada de Serviço\+:}} Responsável pela lógica de negócio e armazenamento de dados.
+\end{DoxyEnumerate}
+
+O projeto inclui a implementação de classes de Domínios, Entidades, Controladoras e Interfaces.\hypertarget{md_README_autotoc_md27}{}\doxysection{Tecnologias Utilizadas}\label{md_README_autotoc_md27}
+
+\begin{DoxyItemize}
+\item {\bfseries{Linguagem\+:}} C++
+\item {\bfseries{Ambiente de Desenvolvimento\+:}} Compatível com Code\+::\+Blocks
+\item {\bfseries{Documentação\+:}} Doxygen (H\+T\+ML)
+\item {\bfseries{Persistência\+:}} Estrutura de dados em memória ou S\+Q\+Lite
+\item {\bfseries{Modelagem\+:}} U\+ML (Diagramas de arquitetura)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md28}{}\doxysection{Estrutura de Arquivos}\label{md_README_autotoc_md28}
+
+\begin{DoxyItemize}
+\item src/\+: Código-\/fonte (.cpp e .h)
+\item src/dominios/\+: Implementação das classes de domínio e validações
+\item src/entidades/\+: Implementação das classes de entidade
+\item doc/\+: Documentação gerada pelo Doxygen
+\item bin/\+: Executáveis
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md29}{}\doxysection{Compilação e Execução}\label{md_README_autotoc_md29}
+O projeto possui dois modos de compilação\+: um para validação unitária dos domínios e outro para o sistema completo.\hypertarget{md_README_autotoc_md30}{}\doxysubsection{1. Teste de Unidade (\+Domínios)}\label{md_README_autotoc_md30}
+Utilize este comando para compilar e rodar apenas os testes das regras de validação (C\+PF, \mbox{\hyperlink{classEmail}{Email}}, \mbox{\hyperlink{classSenha}{Senha}}, etc.) isoladamente, mantendo a função main limpa.
+
+Compilação\+: g++ src/teste\+\_\+dominios.\+cpp src/dominios/$\ast$.cpp -\/I src -\/o teste\+\_\+dominios
+
+Execução\+: ./teste\+\_\+dominios (Linux/\+Mac) teste\+\_\+dominios.\+exe (Windows)\hypertarget{md_README_autotoc_md31}{}\doxysubsection{2. Sistema Principal}\label{md_README_autotoc_md31}
+Utilize este comando para compilar o sistema completo, incluindo menus e fluxo de navegação.
+
+Compilação\+: g++ src/main.\+cpp src/dominios/$\ast$.cpp -\/I src -\/o sistema
+
+Nota\+: Conforme novas camadas (serviços, controladoras) forem adicionadas, seus arquivos .cpp devem ser incluídos neste comando.
+
+Execução\+: ./sistema (Linux/\+Mac) sistema.\+exe (Windows)\hypertarget{md_README_autotoc_md32}{}\doxysection{Checklist de Entrega}\label{md_README_autotoc_md32}
+
+\begin{DoxyItemize}
+\item Código-\/fonte e executável.
+\item Documentação Doxygen (Páginas H\+T\+ML).
+\item Modelo de Arquitetura (P\+DF) com descrição dos módulos.
+\item Vídeo de demonstração do Teste Fumaça (Smoke Test).
+\item Arquivo compactado no formato T1-\/\+T\+P1-\/\+X-\/\+Y-\/\+Z.\+Z\+IP (onde X, Y, Z são as matrículas).
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md33}{}\doxysection{Autores}\label{md_README_autotoc_md33}
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classNome}{Nome}} do Aluno 1 -\/ Matrícula\+: X
+\item \mbox{\hyperlink{classNome}{Nome}} do Aluno 2 -\/ Matrícula\+: Y
+\item \mbox{\hyperlink{classNome}{Nome}} do Aluno 3 -\/ Matrícula\+: Z 
+\end{DoxyItemize}

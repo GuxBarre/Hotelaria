@@ -1,0 +1,3 @@
+<map id="Telefone" name="Telefone">
+<area shape="rect" id="node1" title="Classe responsável por armazenar e validar um número de telefone. Formato esperado: +XXYYZZZZZZZZZ (E..." alt="" coords="5,5,108,127"/>
+</map>

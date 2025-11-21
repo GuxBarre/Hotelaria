@@ -1,0 +1,126 @@
+\hypertarget{classNome}{}\doxysection{Referência à classe Nome}
+\label{classNome}\index{Nome@{Nome}}
+
+
+Representa o domínio de nome de pessoa ou hotel.  
+
+
+
+
+{\ttfamily \#include $<$Nome.\+h$>$}
+
+
+
+Diagrama de colaboração para Nome\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classNome__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNome_a500b022728cd437dd749bfe625a26a4d}\label{classNome_a500b022728cd437dd749bfe625a26a4d}} 
+\mbox{\hyperlink{classNome_a500b022728cd437dd749bfe625a26a4d}{Nome}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com estado vazio. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNome_aac2695c7f8ca0e5c023b37b780bc85a5}{Nome}} (std\+::string nome)
+\begin{DoxyCompactList}\small\item\em Construtor de inicialização. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNome_ace4eb721626c520a31a99cf771373c7c}{set\+Nome}} (std\+::string nome)
+\begin{DoxyCompactList}\small\item\em Define o nome. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classNome_a1c08f5b9827a1e97a2631196ff99fdef}{get\+Nome}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o nome armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de nome de pessoa ou hotel. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item \mbox{[}cite\+\_\+start\mbox{]}Tamanho\+: 5 a 20 caracteres\mbox{[}cite\+: 59\mbox{]}.
+\item \mbox{[}cite\+\_\+start\mbox{]}Caracteres permitidos\+: Apenas letras (A-\/Z, a-\/z) ou espaço em branco\mbox{[}cite\+: 59\mbox{]}.
+\item \mbox{[}cite\+\_\+start\mbox{]}Formatação\+: O primeiro caractere de cada termo deve ser letra maiúscula (A-\/Z)\mbox{[}cite\+: 59\mbox{]}.
+\item \mbox{[}cite\+\_\+start\mbox{]}Espaços\+: Espaço em branco deve ser seguido por letra (não permite espaços consecutivos)\mbox{[}cite\+: 59\mbox{]}.
+\item \mbox{[}cite\+\_\+start\mbox{]}O último caractere não pode ser um espaço em branco\mbox{[}cite\+: 59\mbox{]}. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classNome_aac2695c7f8ca0e5c023b37b780bc85a5}\label{classNome_aac2695c7f8ca0e5c023b37b780bc85a5}} 
+\index{Nome@{Nome}!Nome@{Nome}}
+\index{Nome@{Nome}!Nome@{Nome}}
+\doxysubsubsection{\texorpdfstring{Nome()}{Nome()}}
+{\footnotesize\ttfamily Nome\+::\+Nome (\begin{DoxyParamCaption}\item[{std\+::string}]{nome }\end{DoxyParamCaption})}
+
+
+
+Construtor de inicialização. 
+
+
+\begin{DoxyItemize}
+\item Já realiza a validação do nome fornecido.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em nome} & String representando o nome. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classNome_a1c08f5b9827a1e97a2631196ff99fdef}\label{classNome_a1c08f5b9827a1e97a2631196ff99fdef}} 
+\index{Nome@{Nome}!getNome@{getNome}}
+\index{getNome@{getNome}!Nome@{Nome}}
+\doxysubsubsection{\texorpdfstring{getNome()}{getNome()}}
+{\footnotesize\ttfamily string Nome\+::get\+Nome (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o nome armazenado. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+std\+::string O nome atual. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classNome_ace4eb721626c520a31a99cf771373c7c}\label{classNome_ace4eb721626c520a31a99cf771373c7c}} 
+\index{Nome@{Nome}!setNome@{setNome}}
+\index{setNome@{setNome}!Nome@{Nome}}
+\doxysubsubsection{\texorpdfstring{setNome()}{setNome()}}
+{\footnotesize\ttfamily void Nome\+::set\+Nome (\begin{DoxyParamCaption}\item[{std\+::string}]{nome }\end{DoxyParamCaption})}
+
+
+
+Define o nome. 
+
+
+\begin{DoxyItemize}
+\item Verifica todas as regras (tamanho, capitalização e espaços) antes de armazenar.
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em nome} & String do nome (ex\+: \char`\"{}\+Hotel California\char`\"{}). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o nome não atender às regras de negócio. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Nome.\+h\item 
+src/dominios/Nome.\+cpp\end{DoxyCompactItemize}

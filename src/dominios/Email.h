@@ -5,28 +5,56 @@
 #include <stdexcept>
 #include <iostream>
 
-// Domínio: Email
-// Regras:
-// 1. Formato parte-local@dominio.
-// 2. Parte local: até 64 chars, letras(a-z), digitos(0-9), ponto(.) ou hifen(-).
-//    - Não pode iniciar/terminar com ponto ou hifen.
-//    - Ponto ou hifen deve ser seguido por letra ou digito.
-// 3. Dominio: até 255 chars, partes separadas por ponto.
-//    - Partes: letras(a-z), digitos(0-9) ou hifen(-).
-//    - Não pode iniciar/terminar com hifen.
-
+/**
+ * @class Email
+ * @brief Representa o domínio de endereço de e-mail.
+ * * @details
+ * Regras de formato válido:
+ * - Formato: parte-local@domínio.
+ * - **Parte local**: Até 64 caracteres. Pode conter letra (a-z), dígito (0-9), ponto (.) ou hífen (-).
+ * Não pode iniciar ou terminar com ponto ou hífen. Ponto ou hífen deve ser seguido por letra ou dígito.
+ * - **Domínio**: Até 255 caracteres. Composto por partes separadas por ponto (.).
+ * Cada parte pode conter letra (a-z), dígito (0-9) ou hífen (-). Não pode iniciar ou terminar com hífen.
+ */
 class Email {
 private:
     std::string valor;
 
+    /**
+     * @brief Valida o formato do e-mail segundo as regras estabelecidas.
+     * * @param email A string do e-mail a ser validada.
+     * @throw std::invalid_argument Se o e-mail violar qualquer regra de formatação (tamanho, caracteres proibidos ou posição incorreta de pontuação).
+     */
     void validar(std::string email);
 
 public:
+    /**
+     * @brief Construtor padrão.
+     * Inicializa o objeto com estado vazio.
+     */
     Email(); 
+
+    /**
+     * @brief Construtor de inicialização.
+     * * Já realiza a validação do e-mail fornecido na criação do objeto.
+     * * @param email String contendo o endereço de e-mail.
+     * @throw std::invalid_argument Se o formato for inválido.
+     */
     Email(std::string email);
+    
     virtual ~Email();
 
+    /**
+     * @brief Define o endereço de e-mail.
+     * * @param email String contendo o e-mail no formato parte-local@domínio.
+     * @throw std::invalid_argument Se o formato for inválido (ex: exceder 64 caracteres na parte local ou 255 no domínio).
+     */
     void setValor(std::string email);
+
+    /**
+     * @brief Recupera o endereço de e-mail armazenado.
+     * * @return std::string O e-mail atual.
+     */
     std::string getValor() const;
 };
 

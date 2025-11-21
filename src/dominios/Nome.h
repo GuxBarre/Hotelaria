@@ -5,27 +5,57 @@
 #include <stdexcept>
 #include <iostream>
 
-// Domínio: Nome
-// Regras:
-// 1. 5 a 20 caracteres.
-// 2. Apenas letras (A-Z, a-z) ou espaço.
-// 3. Primeira letra de cada termo deve ser Maiúscula.
-// 4. Não pode haver espaços seguidos.
-// 5. Não pode terminar com espaço.
-
+/**
+ * @class Nome
+ * @brief Representa o domínio de nome de pessoa ou hotel.
+ * * @details
+ * Regras de formato válido conforme especificação:
+ * - [cite_start]Tamanho: 5 a 20 caracteres[cite: 59].
+ * - [cite_start]Caracteres permitidos: Apenas letras (A-Z, a-z) ou espaço em branco[cite: 59].
+ * - [cite_start]Formatação: O primeiro caractere de cada termo deve ser letra maiúscula (A-Z)[cite: 59].
+ * - [cite_start]Espaços: Espaço em branco deve ser seguido por letra (não permite espaços consecutivos)[cite: 59].
+ * - [cite_start]O último caractere não pode ser um espaço em branco[cite: 59].
+ */
 class Nome {
 private:
     std::string nome;
     
-    // Método auxiliar de validação
+    /**
+     * @brief Valida se o nome obedece às regras de formatação e tamanho.
+     * * @param nome A string a ser validada.
+     * @throw std::invalid_argument Se o nome for muito curto/longo, contiver caracteres inválidos, termos minúsculos ou espaços mal posicionados.
+     */
     void validar(std::string nome);
 
 public:
+    /**
+     * @brief Construtor padrão.
+     * Inicializa o objeto com estado vazio.
+     */
     Nome();
+
+    /**
+     * @brief Construtor de inicialização.
+     * * Já realiza a validação do nome fornecido.
+     * * @param nome String representando o nome.
+     * @throw std::invalid_argument Se o formato for inválido.
+     */
     Nome(std::string nome);
+    
     virtual ~Nome();
 
+    /**
+     * @brief Define o nome.
+     * * Verifica todas as regras (tamanho, capitalização e espaços) antes de armazenar.
+     * * @param nome String do nome (ex: "Hotel California").
+     * @throw std::invalid_argument Se o nome não atender às regras de negócio.
+     */
     void setNome(std::string nome);
+
+    /**
+     * @brief Recupera o nome armazenado.
+     * * @return std::string O nome atual.
+     */
     std::string getNome() const;
 };
 

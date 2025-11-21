@@ -1,0 +1,141 @@
+\hypertarget{classCartao}{}\doxysection{Referência à classe Cartao}
+\label{classCartao}\index{Cartao@{Cartao}}
+
+
+Classe responsável por representar e validar um número de cartão de crédito.  
+
+
+
+
+{\ttfamily \#include $<$Cartao.\+h$>$}
+
+
+
+Diagrama de colaboração para Cartao\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classCartao__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCartao_a386e002603b70d4eb31ff5b9ad61607f}{Cartao}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa um objeto \mbox{\hyperlink{classCartao}{Cartao}} vazio. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCartao_a7523f970ed0dc232e1223a3b00cbab19}{Cartao}} (const string \&numero)
+\begin{DoxyCompactList}\small\item\em Construtor com inicialização de valor. Já realiza a validação no momento da criação. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCartao_a97bca4b8da94ae5fd4a55150ae09e4f0}{set\+Valor}} (const string \&numero)
+\begin{DoxyCompactList}\small\item\em Define um novo número para o cartão. Substitui o valor atual se o novo valor passar na validação. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classCartao_a4456f94faa405be82ed34d2a0e5b0dd6}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o número do cartão armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Classe responsável por representar e validar um número de cartão de crédito. 
+
+
+\begin{DoxyItemize}
+\item Esta classe armazena um número de cartão e garante que ele atenda aos requisitos\+:
+\item Ter exatamente 16 dígitos numéricos.
+\item Ser válido segundo o algoritmo de Luhn (verificação de dígito verificador). 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classCartao_a386e002603b70d4eb31ff5b9ad61607f}\label{classCartao_a386e002603b70d4eb31ff5b9ad61607f}} 
+\index{Cartao@{Cartao}!Cartao@{Cartao}}
+\index{Cartao@{Cartao}!Cartao@{Cartao}}
+\doxysubsubsection{\texorpdfstring{Cartao()}{Cartao()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Cartao\+::\+Cartao (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construtor padrão. Inicializa um objeto \mbox{\hyperlink{classCartao}{Cartao}} vazio. 
+
+Construtor Padrão. Inicializa o objeto com uma string vazia. Não lança exceções neste estado inicial. \mbox{\Hypertarget{classCartao_a7523f970ed0dc232e1223a3b00cbab19}\label{classCartao_a7523f970ed0dc232e1223a3b00cbab19}} 
+\index{Cartao@{Cartao}!Cartao@{Cartao}}
+\index{Cartao@{Cartao}!Cartao@{Cartao}}
+\doxysubsubsection{\texorpdfstring{Cartao()}{Cartao()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Cartao\+::\+Cartao (\begin{DoxyParamCaption}\item[{const string \&}]{numero }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor com inicialização de valor. Já realiza a validação no momento da criação. 
+
+Construtor com validação imediata. Tenta definir o valor e validar. Se falhar, a exceção sobe para quem chamou.
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em numero} & O número do cartão desejado. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parâmetros}
+{\em numero} & O número do cartão a ser validado. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classCartao_a4456f94faa405be82ed34d2a0e5b0dd6}\label{classCartao_a4456f94faa405be82ed34d2a0e5b0dd6}} 
+\index{Cartao@{Cartao}!getValor@{getValor}}
+\index{getValor@{getValor}!Cartao@{Cartao}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily string Cartao\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o número do cartão armazenado. 
+
+Retorna o número atual armazenado.
+
+\begin{DoxyReturn}{Retorna}
+string O número atual do cartão.
+
+string Número do cartão. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCartao_a97bca4b8da94ae5fd4a55150ae09e4f0}\label{classCartao_a97bca4b8da94ae5fd4a55150ae09e4f0}} 
+\index{Cartao@{Cartao}!setValor@{setValor}}
+\index{setValor@{setValor}!Cartao@{Cartao}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Cartao\+::set\+Valor (\begin{DoxyParamCaption}\item[{const string \&}]{numero }\end{DoxyParamCaption})}
+
+
+
+Define um novo número para o cartão. Substitui o valor atual se o novo valor passar na validação. 
+
+Define o número do cartão. Este método atua como um \char`\"{}guardião\char`\"{}, impedindo que o objeto assuma um estado inválido.
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em numero} & A string com os 16 dígitos. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o número for inválido.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parâmetros}
+{\em numero} & String numérica de 16 dígitos. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Cartao.\+h\item 
+src/dominios/Cartao.\+cpp\end{DoxyCompactItemize}

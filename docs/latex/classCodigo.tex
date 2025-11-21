@@ -1,0 +1,122 @@
+\hypertarget{classCodigo}{}\doxysection{Referência à classe Codigo}
+\label{classCodigo}\index{Codigo@{Codigo}}
+
+
+Representa o domínio de Código de identificação.  
+
+
+
+
+{\ttfamily \#include $<$Codigo.\+h$>$}
+
+
+
+Diagrama de colaboração para Codigo\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classCodigo__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCodigo_ab600451a62d146afd95c1c1a0fc041c3}\label{classCodigo_ab600451a62d146afd95c1c1a0fc041c3}} 
+\mbox{\hyperlink{classCodigo_ab600451a62d146afd95c1c1a0fc041c3}{Codigo}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com estado vazio. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCodigo_acb9e3fe0d7961d0f1be66a7b95a813aa}{Codigo}} (const std\+::string \&codigo)
+\begin{DoxyCompactList}\small\item\em Construtor que inicializa com um valor específico. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCodigo_a2cbfc40a2615a463139b00230b86aa94}{set\+Valor}} (const std\+::string \&codigo)
+\begin{DoxyCompactList}\small\item\em Define o valor do código. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classCodigo_a42f4ee541458441b438bb4b0c9cc3921}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Obtém o código armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Representa o domínio de Código de identificação. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Regras de formato válido conforme especificação\+:
+\begin{DoxyItemize}
+\item Deve conter exatamente 10 caracteres\mbox{[}cite\+: 53\mbox{]}.
+\item Cada caractere deve ser uma letra (a-\/z) ou um dígito (0-\/9)\mbox{[}cite\+: 54\mbox{]}.
+\item Este identificador é utilizado como chave primária para Hotéis e Reservas. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classCodigo_acb9e3fe0d7961d0f1be66a7b95a813aa}\label{classCodigo_acb9e3fe0d7961d0f1be66a7b95a813aa}} 
+\index{Codigo@{Codigo}!Codigo@{Codigo}}
+\index{Codigo@{Codigo}!Codigo@{Codigo}}
+\doxysubsubsection{\texorpdfstring{Codigo()}{Codigo()}}
+{\footnotesize\ttfamily Codigo\+::\+Codigo (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{codigo }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor que inicializa com um valor específico. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em codigo} & String representando o código (10 caracteres alfanuméricos). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o formato for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classCodigo_a42f4ee541458441b438bb4b0c9cc3921}\label{classCodigo_a42f4ee541458441b438bb4b0c9cc3921}} 
+\index{Codigo@{Codigo}!getValor@{getValor}}
+\index{getValor@{getValor}!Codigo@{Codigo}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily std\+::string Codigo\+::get\+Valor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Obtém o código armazenado. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Retorna}
+std\+::string O código atual. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classCodigo_a2cbfc40a2615a463139b00230b86aa94}\label{classCodigo_a2cbfc40a2615a463139b00230b86aa94}} 
+\index{Codigo@{Codigo}!setValor@{setValor}}
+\index{setValor@{setValor}!Codigo@{Codigo}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily void Codigo\+::set\+Valor (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{codigo }\end{DoxyParamCaption})}
+
+
+
+Define o valor do código. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parâmetros}
+{\em codigo} & String com 10 caracteres (letras a-\/z ou dígitos 0-\/9). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Caso a regra de validação não seja atendida. \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Codigo.\+h\item 
+src/dominios/Codigo.\+cpp\end{DoxyCompactItemize}

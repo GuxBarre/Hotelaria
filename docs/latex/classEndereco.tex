@@ -1,0 +1,121 @@
+\hypertarget{classEndereco}{}\doxysection{Referência à classe Endereco}
+\label{classEndereco}\index{Endereco@{Endereco}}
+
+
+Classe responsável por armazenar e validar um endereço. Regras de validação\+:  
+
+
+
+
+{\ttfamily \#include $<$Endereco.\+h$>$}
+
+
+
+Diagrama de colaboração para Endereco\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classEndereco__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEndereco_a1bb2df2319912c102821c133485bec0a}{Endereco}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão. Inicializa o objeto com uma string vazia. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classEndereco_a3d7f810cebeb00e32055d335a81894a9}{Endereco}} (const std\+::string \&endereco)
+\begin{DoxyCompactList}\small\item\em Construtor com inicialização e validação. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEndereco_a68f9d7fd74160e3ad878d49eaa5cb50f}{set\+Endereco}} (const std\+::string \&endereco)
+\begin{DoxyCompactList}\small\item\em Define um novo endereço. Substitui o valor atual se o novo passar na validação. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classEndereco_a9c87c6e756531557d4a46c92fcabb48d}{get\+Endereco}} () const
+\begin{DoxyCompactList}\small\item\em Recupera o endereço armazenado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Classe responsável por armazenar e validar um endereço. Regras de validação\+: 
+
+
+\begin{DoxyItemize}
+\item O texto deve conter entre 5 e 30 caracteres. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classEndereco_a1bb2df2319912c102821c133485bec0a}\label{classEndereco_a1bb2df2319912c102821c133485bec0a}} 
+\index{Endereco@{Endereco}!Endereco@{Endereco}}
+\index{Endereco@{Endereco}!Endereco@{Endereco}}
+\doxysubsubsection{\texorpdfstring{Endereco()}{Endereco()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Endereco\+::\+Endereco (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construtor padrão. Inicializa o objeto com uma string vazia. 
+
+Construtor padrão. \mbox{\Hypertarget{classEndereco_a3d7f810cebeb00e32055d335a81894a9}\label{classEndereco_a3d7f810cebeb00e32055d335a81894a9}} 
+\index{Endereco@{Endereco}!Endereco@{Endereco}}
+\index{Endereco@{Endereco}!Endereco@{Endereco}}
+\doxysubsubsection{\texorpdfstring{Endereco()}{Endereco()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Endereco\+::\+Endereco (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{endereco }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor com inicialização e validação. 
+
+Construtor com parâmetros. Utiliza o método set\+Endereco para garantir a validação.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em endereco} & O endereço a ser atribuído. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o endereço for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classEndereco_a9c87c6e756531557d4a46c92fcabb48d}\label{classEndereco_a9c87c6e756531557d4a46c92fcabb48d}} 
+\index{Endereco@{Endereco}!getEndereco@{getEndereco}}
+\index{getEndereco@{getEndereco}!Endereco@{Endereco}}
+\doxysubsubsection{\texorpdfstring{getEndereco()}{getEndereco()}}
+{\footnotesize\ttfamily std\+::string Endereco\+::get\+Endereco (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Recupera o endereço armazenado. 
+
+Getter do endereço.
+
+\begin{DoxyReturn}{Retorna}
+std\+::string O texto do endereço. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classEndereco_a68f9d7fd74160e3ad878d49eaa5cb50f}\label{classEndereco_a68f9d7fd74160e3ad878d49eaa5cb50f}} 
+\index{Endereco@{Endereco}!setEndereco@{setEndereco}}
+\index{setEndereco@{setEndereco}!Endereco@{Endereco}}
+\doxysubsubsection{\texorpdfstring{setEndereco()}{setEndereco()}}
+{\footnotesize\ttfamily void Endereco\+::set\+Endereco (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{endereco }\end{DoxyParamCaption})}
+
+
+
+Define um novo endereço. Substitui o valor atual se o novo passar na validação. 
+
+Setter do endereço. Valida antes de atribuir. Nota\+: Corrigido de \textquotesingle{}set\+Valor\textquotesingle{} para \textquotesingle{}set\+Endereco\textquotesingle{} para casar com o .h.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em endereco} & O novo endereço. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se o endereço for inválido. \\
+\hline
+\end{DoxyExceptions}
+
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+src/dominios/Endereco.\+h\item 
+src/dominios/Endereco.\+cpp\end{DoxyCompactItemize}
