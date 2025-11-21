@@ -44,13 +44,13 @@ public:
      * * @param valor Inteiro entre 0 e 50.
      * @throw std::invalid_argument Se o valor violar a regra de intervalo.
      */
-    void setValor(int valor);
+    void setRamal(int valor);
 
     /**
      * @brief Recupera o número do ramal.
      * * @return int O valor do ramal.
      */
-    int getValor() const;
+    int getRamal() const;
 };
 
-#endif // RAMAL_H
+#endif 

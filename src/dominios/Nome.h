@@ -10,11 +10,11 @@
  * @brief Representa o domínio de nome de pessoa ou hotel.
  * * @details
  * Regras de formato válido conforme especificação:
- * - [cite_start]Tamanho: 5 a 20 caracteres[cite: 59].
- * - [cite_start]Caracteres permitidos: Apenas letras (A-Z, a-z) ou espaço em branco[cite: 59].
- * - [cite_start]Formatação: O primeiro caractere de cada termo deve ser letra maiúscula (A-Z)[cite: 59].
- * - [cite_start]Espaços: Espaço em branco deve ser seguido por letra (não permite espaços consecutivos)[cite: 59].
- * - [cite_start]O último caractere não pode ser um espaço em branco[cite: 59].
+ * - Tamanho: 5 a 20 caracteres.
+ * - Caracteres permitidos: Apenas letras (A-Z, a-z) ou espaço em branco.
+ * - Formatação: O primeiro caractere de cada termo deve ser letra maiúscula (A-Z).
+ * - Espaços: Espaço em branco deve ser seguido por letra (não permite espaços consecutivos).
+ * - O último caractere não pode ser um espaço em branco.
  */
 class Nome {
 private:
@@ -59,4 +59,4 @@ public:
     std::string getNome() const;
 };
 
-#endif // NOME_H
+#endif

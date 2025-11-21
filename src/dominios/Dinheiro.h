@@ -50,14 +50,14 @@ public:
      * * @param valor Valor monetário (ex: 100.50).
      * @throw std::invalid_argument Se o valor for menor que 0,01 ou maior que 1.000.000,00.
      */
-    void setValor(double valor);
+    void setDinheiro(double valor);
 
     /**
      * @brief Recupera o valor monetário.
      * * Converte o valor interno (centavos) de volta para double.
      * * @return double O valor monetário.
      */
-    double getValor() const; 
+    double getDinheiro() const; 
 };
 
-#endif // DINHEIRO_H
+#endif

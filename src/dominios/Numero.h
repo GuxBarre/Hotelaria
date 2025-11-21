@@ -45,13 +45,13 @@ public:
      * * @param valor Inteiro entre 1 e 999.
      * @throw std::invalid_argument Se o valor violar a regra de intervalo.
      */
-    void setValor(int valor);
+    void setNumero(int valor);
 
     /**
      * @brief Recupera o número armazenado.
      * * @return int O número do quarto.
      */
-    int getValor() const;
+    int getNumero() const;
 };
 
-#endif // NUMERO_H
+#endif

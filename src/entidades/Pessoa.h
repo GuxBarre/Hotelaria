@@ -1,27 +1,28 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
-
 #include "../dominios/Nome.h"
 #include "../dominios/Email.h"
 
-class Pessoas {
-    private:
-        Nome nome;
-        Email email;
+/**
+ * @brief Entidade que representa uma Pessoa no sistema.
+ * * Classe base que contém os dados comuns a todos os usuários (Nome e Email).
+ * Conforme diagrama, o Email é a chave primária (PK).
+ */
+class Pessoa {
+private:
+    Nome nome;
+    Email email;
 
-    public:
+public:
+    Pessoa();
+    virtual ~Pessoa();
 
-    // Construtor
-    Pessoa(const Nome& nome, const Email& email):;
-
-    // Nome pode ser alterado
     void setNome(const Nome& nome);
+    void setEmail(const Email& email);
+
     Nome getNome() const;
-
-    // Email não pode ser alterado
     Email getEmail() const;
-
 };
 
-#endif
+#endif // PESSOA_H

@@ -49,13 +49,13 @@ public:
      * * @param email String contendo o e-mail no formato parte-local@domínio.
      * @throw std::invalid_argument Se o formato for inválido (ex: exceder 64 caracteres na parte local ou 255 no domínio).
      */
-    void setValor(std::string email);
+    void setEmail(std::string email);
 
     /**
      * @brief Recupera o endereço de e-mail armazenado.
      * * @return std::string O e-mail atual.
      */
-    std::string getValor() const;
+    std::string getEmail() const;
 };
 
-#endif // EMAIL_H
+#endif

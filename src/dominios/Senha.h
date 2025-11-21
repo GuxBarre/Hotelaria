@@ -50,13 +50,13 @@ public:
      * * @param senha String com 5 caracteres atendendo a todos os critérios de segurança.
      * @throw std::invalid_argument Em caso de violação de qualquer regra de validação.
      */
-    void setValor(std::string senha);
+    void setSenha(std::string senha);
 
     /**
      * @brief Recupera a senha armazenada.
      * * @return std::string A senha atual.
      */
-    std::string getValor() const;
+    std::string getSenha() const;
 };
 
-#endif // SENHA_H
+#endif 

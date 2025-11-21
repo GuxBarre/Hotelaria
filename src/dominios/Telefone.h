@@ -43,13 +43,13 @@ class Telefone {
          * @param telefone O novo número.
          * @throw std::invalid_argument Se o formato for incorreto.
          */
-        void setValor(const std::string& telefone);
+        void setTelefone(const std::string& telefone);
 
         /**
          * @brief Retorna o telefone armazenado.
          * @return std::string O número do telefone.
          */
-        std::string getValor() const;
+        std::string getTelefone() const;
 };
 
 #endif

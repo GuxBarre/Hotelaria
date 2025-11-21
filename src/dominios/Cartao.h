@@ -55,13 +55,13 @@ class Cartao {
          * * @param numero A string com os 16 dígitos.
          * @throw std::invalid_argument Se o número for inválido.
          */
-        void setValor(const string& numero);
+        void setCartao(const string& numero);
 
         /**
          * @brief Recupera o número do cartão armazenado.
          * @return string O número atual do cartão.
          */
-        string getValor() const;
+        string getCartao() const;
 };
 
 #endif

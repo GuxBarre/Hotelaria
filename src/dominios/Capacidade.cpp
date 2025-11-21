@@ -12,14 +12,14 @@ Capacidade::Capacidade() {
 }
 
 Capacidade::Capacidade(int valor) {
-    setValor(valor);
+    setCapacidade(valor);
 }
 
-void Capacidade::setValor(int valor) {
+void Capacidade::setCapacidade(int valor) {
     validar(valor);
     this->valor = valor;
 }
 
-int Capacidade::getValor() const {
+int Capacidade::getCapacidade() const {
     return this->valor;
 }

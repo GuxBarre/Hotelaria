@@ -3,28 +3,27 @@
 using namespace std;
 
 Ramal::Ramal() {
-    this->valor = 0; // Inicializa com um valor válido padrão (00)
+    this->valor = 0; 
 }
 
 Ramal::Ramal(int valor) {
-    setValor(valor);
+    setRamal(valor);
 }
 
 Ramal::~Ramal() {
 }
 
 void Ramal::validar(int valor) {
-    // Regra: 00 a 50
     if (valor < 0 || valor > 50) {
         throw invalid_argument("Erro: Ramal deve estar entre 0 e 50.");
     }
 }
 
-void Ramal::setValor(int valor) {
+void Ramal::setRamal(int valor) {
     validar(valor);
     this->valor = valor;
 }
 
-int Ramal::getValor() const {
+int Ramal::getRamal() const {
     return valor;
 }

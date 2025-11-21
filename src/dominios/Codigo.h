@@ -43,13 +43,13 @@ class Codigo {
          * * @param codigo String com 10 caracteres (letras a-z ou dígitos 0-9).
          * @throw std::invalid_argument Caso a regra de validação não seja atendida.
          */
-        void setValor(const std::string& codigo);
+        void setCodigo(const std::string& codigo);
 
         /**
          * @brief Obtém o código armazenado.
          * * @return std::string O código atual.
          */
-        std::string getValor() const;
+        std::string getCodigo() const;
 };
 
 #endif

@@ -28,7 +28,7 @@ int main() {
     try {
         cout << "1. Tentando definir capacidade valida (3)..." << endl;
         Capacidade c(3);
-        cout << "   [SUCESSO] Objeto criado com valor: " << c.getValor() << endl;
+        cout << "   [SUCESSO] Objeto criado com valor: " << c.getCapacidade() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -38,7 +38,7 @@ int main() {
         Capacidade c(10);
         cout << "   [FALHA] O programa nao deveria chegar aqui." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
     imprimirCabecalho("CARTAO");
@@ -46,7 +46,7 @@ int main() {
     try {
         cout << "1. Tentando criar cartao valido (4000000000000002)..." << endl;
         Cartao c("4000000000000002");
-        cout << "   [SUCESSO] Cartao aceito: " << c.getValor() << endl;
+        cout << "   [SUCESSO] Cartao aceito: " << c.getCartao() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -56,14 +56,14 @@ int main() {
         Codigo c("4000000000000003");
         cout << "   [FALHA] O programa aceitou cartao invalido." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
     imprimirCabecalho("CODIGO");
     try{
         cout << "1. Tentando criar codigo valido (1000000000)..." << endl;
         Codigo c("1000000000");
-        cout << "   [SUCESSO] Codigo aceito: " << c.getValor() << endl;
+        cout << "   [SUCESSO] Codigo aceito: " << c.getCodigo() << endl;
     }catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -72,7 +72,7 @@ int main() {
         Codigo c("10000000001");
         cout << "   [FALHA] O programa aceitou codigo invalido." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
     imprimirCabecalho("DATA");
@@ -90,7 +90,7 @@ int main() {
         Data d("31/04/2024"); 
         cout << "   [FALHA] O programa aceitou 31 de abril." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
     imprimirCabecalho("DINHEIRO");
@@ -98,7 +98,7 @@ int main() {
     try {
         cout << "1. Tentando valor valido (150.50)..." << endl;
         Dinheiro din(150.50);
-        cout << "   [SUCESSO] Dinheiro aceito: " << din.getValor() << endl;
+        cout << "   [SUCESSO] Dinheiro aceito: " << din.getDinheiro() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -124,7 +124,7 @@ int main() {
     try {
         cout << "1. Tentando email valido (nome.sobrenome-123@dominio.com)..." << endl;
         Email em("nome.sobrenome-123@dominio.com");
-        cout << "   [SUCESSO] Email aceito: " << em.getValor() << endl;
+        cout << "   [SUCESSO] Email aceito: " << em.getEmail() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -184,7 +184,7 @@ int main() {
         Endereco e("Rua..Teste");
         cout << "   [FALHA] O programa aceitou pontuacao invalida." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
     imprimirCabecalho("NOME");
@@ -233,7 +233,7 @@ int main() {
     try {
         cout << "1. Tentando numero valido (150)..." << endl;
         Numero num(150);
-        cout << "   [SUCESSO] Numero aceito: " << num.getValor() << endl;
+        cout << "   [SUCESSO] Numero aceito: " << num.getNumero() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -267,7 +267,7 @@ int main() {
     try {
         cout << "1. Tentando ramal valido (25)..." << endl;
         Ramal r(25);
-        cout << "   [SUCESSO] Ramal aceito: " << r.getValor() << endl;
+        cout << "   [SUCESSO] Ramal aceito: " << r.getRamal() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -302,7 +302,7 @@ int main() {
     try {
         cout << "1. Tentando senha valida (X1y%2)..." << endl;
         Senha s("X1y%2");
-        cout << "   [SUCESSO] Senha aceita: " << s.getValor() << endl;
+        cout << "   [SUCESSO] Senha aceita: " << s.getSenha() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -353,7 +353,7 @@ int main() {
     try {
         cout << "1. Tentando criar telefone valido (+55219999988888)..." << endl;
         Telefone t("+55219999988888");
-        cout << "   [SUCESSO] Telefone aceito: " << t.getValor() << endl;
+        cout << "   [SUCESSO] Telefone aceito: " << t.getTelefone() << endl;
     } catch (const exception& e) {
         cout << "   [ERRO INESPERADO] " << e.what() << endl;
     }
@@ -363,9 +363,8 @@ int main() {
         Telefone t("+5521");
         cout << "   [FALHA] O programa aceitou telefone curto." << endl;
     } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO DA CLASSE] " << e.what() << endl;
+        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
 
-    cout << "\n\n=== FIM DOS TESTES ===" << endl;
     return 0;
 }

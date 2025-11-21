@@ -45,13 +45,13 @@ class Capacidade {
          * * @param valor Inteiro representando a capacidade (1 a 4).
          * @throw std::invalid_argument Se o valor for menor que 1 ou maior que 4.
          */
-        void setValor(int valor);
+        void setCapacidade(int valor);
 
         /**
          * @brief Recupera o valor armazenado da capacidade.
          * * @return int O valor atual da capacidade.
          */
-        int getValor() const;
+        int getCapacidade() const;
 };
 
 #endif
