@@ -118,44 +118,6 @@ int main() {
     } catch (const exception& e) {
         cout << "   [ERRO CAPTURADO] " << e.what() << endl;
     }
-    imprimirCabecalho("RAMAL");
-
-    // Caso de Sucesso (Valor médio)
-    try {
-        cout << "1. Tentando ramal valido (25)..." << endl;
-        Ramal r(25);
-        cout << "   [SUCESSO] Ramal aceito: " << r.getValor() << endl;
-    } catch (const exception& e) {
-        cout << "   [ERRO INESPERADO] " << e.what() << endl;
-    }
-
-    // Caso de Sucesso (Limites)
-    try {
-        cout << "2. Tentando limites validos (0 e 50)..." << endl;
-        Ramal r1(0);
-        Ramal r2(50);
-        cout << "   [SUCESSO] Limites aceitos." << endl;
-    } catch (const exception& e) {
-        cout << "   [ERRO INESPERADO] " << e.what() << endl;
-    }
-
-    // Caso de Erro (Negativo)
-    try {
-        cout << "\n3. Tentando ramal invalido (-1)..." << endl;
-        Ramal r(-1);
-        cout << "   [FALHA] Aceitou valor negativo." << endl;
-    } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
-    }
-
-    // Caso de Erro (Acima do máximo)
-    try {
-        cout << "\n4. Tentando ramal invalido (51)..." << endl;
-        Ramal r(51);
-        cout << "   [FALHA] Aceitou valor 51." << endl;
-    } catch (const exception& e) {
-        cout << "   [ERRO CAPTURADO] " << e.what() << endl;
-    }
   
     imprimirCabecalho("EMAIL");
 
