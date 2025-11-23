@@ -1,124 +1,136 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
+// Includes dos Domínios
+#include "dominios/Data.h"
+#include "dominios/Numero.h"
+#include "dominios/Codigo.h"
+#include "dominios/Email.h"
+#include "dominios/Senha.h"
+#include "dominios/Nome.h"
+#include "dominios/Capacidade.h"
+#include "dominios/Dinheiro.h"
+
+// Includes das Entidades
+#include "entidades/Reserva.h"
+#include "entidades/Quarto.h"
+#include "entidades/Hotel.h"
+#include "entidades/Gerente.h"
+#include "entidades/Hospede.h"
+
+// Includes das Controladoras (Containers)
+#include "controladoras/ContainerReserva.h"
 #include "controladoras/ContainerPessoal.h"
 #include "controladoras/ContainerHotelaria.h"
-#include "controladoras/ContainerReserva.h"
 
 using namespace std;
 
+// --- Função Auxiliar para Relatório de Testes ---
+void ASSERT(bool condicao, string nomeDoTeste) {
+    if (condicao) {
+        cout << "   [OK] " << nomeDoTeste << endl;
+    } else {
+        cout << "   [FALHA] " << nomeDoTeste << " (Resultado inesperado)" << endl;
+    }
+}
+
 int main() {
-    cout << "===== TESTE DO SISTEMA =====\n\n";
+    cout << "=======================================" << endl;
+    cout << "   TESTE CONTAINERS      " << endl;
+    cout << "=======================================" << endl;
 
-    // ------------------------------------------------------------
-    // 1. Testar PESSOAL
-    // ------------------------------------------------------------
-    cout << ">> Testando ContainerPessoal...\n";
+    try {
+        // ------------------------------------------------------------------
+        // 1. TESTE: HOTELARIA (Quartos e Hoteis)
+        // ------------------------------------------------------------------
+        cout << "\n[1] TESTE HOTELARIA" << endl;
+        ContainerHotelaria ch;
+        
+        // Preparar Quarto
+        Quarto q1;
+        q1.setNumero(Numero(101));         // Int (Corrigido)
+        q1.setCapacidade(Capacidade(2));
+        q1.setDiaria(Dinheiro(200.00));
+        
+        // Teste de Inclusão
+        ASSERT(ch.criarQuarto(q1), "Criar Quarto 101");
 
-    ContainerPessoal cp;
+        // Teste de Duplicidade (Deve falhar se tentar criar o mesmo número)
+        ASSERT(!ch.criarQuarto(q1), "Bloquear Quarto 101 duplicado");
 
-    // Criar novo gerente
-    Gerente g;
-    g.setEmail(Email("gerente@hotel.com"));
-    g.setSenha(Senha("Abc123"));
-    g.setNome(Nome("Gerente Teste"));
-
-    cout << "Criar gerente: " 
-         << (cp.criarGerente(g) ? "OK" : "FALHOU") << endl;
-
-    // Ler gerente
-    Gerente g2;
-    cout << "Ler gerente: "
-         << (cp.lerGerente(Email("gerente@hotel.com"), &g2) ? "OK" : "FALHOU")
-         << endl;
-
-    // Validar login
-    cout << "Autenticar (correto): "
-         << (cp.validarLogin(Email("admin@admin.com"), Senha("Admin1")) ? "OK" : "FALHOU")
-         << endl;
-
-    cout << "Autenticar (incorreto): "
-         << (cp.validarLogin(Email("admin@admin.com"), Senha("Errado1")) ? "FALHOU" : "OK")
-         << endl;
+        // Teste de Listagem
+        vector<Quarto> listaQ = ch.listarQuartos();
+        ASSERT(listaQ.size() == 1, "Listagem retornou 1 quarto");
 
 
-    // ------------------------------------------------------------
-    // 2. Testar HOTELARIA
-    // ------------------------------------------------------------
-    cout << "\n>> Testando ContainerHotelaria...\n";
+        // ------------------------------------------------------------------
+        // 2. TESTE: RESERVAS (Lógica de Datas)
+        // ------------------------------------------------------------------
+        cout << "\n[2] TESTE RESERVAS" << endl;
+        ContainerReserva cr;
 
-    ContainerHotelaria ch;
+        // Reserva 1: 10/Jan a 20/Jan
+        Reserva r1;
+        r1.setCodigo(Codigo("RES0000001"));
+        r1.setChegada(Data("10/01/2025"));
+        r1.setPartida(Data("20/01/2025"));
+        r1.setValor(Dinheiro(1000.00));
 
-    // Criar hotel
-    Hotel h;
-    h.setCodigo(Codigo("H1"));
-    h.setNome(Nome("Hotel Central"));
+        ASSERT(cr.criarReserva(r1), "Criar Reserva R1 (10-20 Jan)");
 
-    cout << "Criar hotel: "
-         << (ch.criarHotel(h) ? "OK" : "FALHOU") << endl;
+        // Reserva 2: 15/Jan a 25/Jan (Conflito!)
+        Reserva r2;
+        r2.setCodigo(Codigo("RES0000002"));
+        r2.setChegada(Data("15/01/2025")); // Começa antes da R1 terminar
+        r2.setPartida(Data("25/01/2025"));
 
-    // Criar quarto
-    Quarto q;
-    q.setNumero(Numero("101"));
-    q.setCodigoHotel(Codigo("H1"));
-    q.setCapacidade(Capacidade(2));
+        // Esperamos que retorne FALSE (Conflito detectado)
+        ASSERT(!cr.criarReserva(r2), "Bloquear Reserva R2 (Conflito de data)");
 
-    cout << "Criar quarto: "
-         << (ch.criarQuarto(q) ? "OK" : "FALHOU") << endl;
+        // Reserva 3: 21/Jan a 30/Jan (Sem conflito)
+        Reserva r3;
+        r3.setCodigo(Codigo("RES0000003"));
+        r3.setChegada(Data("21/01/2025")); // Começa depois da R1
+        r3.setPartida(Data("30/01/2025"));
 
-    // Tentar excluir hotel que possui quartos
-    cout << "Excluir hotel com quartos (esperado FALHAR): "
-         << (ch.excluirHotel(Codigo("H1")) ? "FALHOU" : "OK")
-         << endl;
+        ASSERT(cr.criarReserva(r3), "Criar Reserva R3 (Data livre)");
 
 
-    // ------------------------------------------------------------
-    // 3. Testar RESERVAS
-    // ------------------------------------------------------------
-    cout << "\n>> Testando ContainerReservas...\n";
+        // ------------------------------------------------------------------
+        // 3. TESTE: PESSOAL (Login e Usuários)
+        // ------------------------------------------------------------------
+        cout << "\n[3] TESTE PESSOAL" << endl;
+        ContainerPessoal cp; // O construtor cria o admin automaticamente
 
-    ContainerReservas cr;
+        // Teste de Login Incorreto
+        Email emailAdmin("admin@admin.com");
+        Senha senhaErrada("1B#d3");
+        ASSERT(!cp.validarLogin(emailAdmin, senhaErrada), "Recusar senha incorreta");
 
-    // Criar reserva 1
-    Reserva r1;
-    r1.setCodigo(Codigo("R1"));
-    r1.setCodigoHotel(Codigo("H1"));
-    r1.setNumeroQuarto(Numero("101"));
-    r1.setDataCheckIn(Data("2025-01-10"));
-    r1.setDataCheckOut(Data("2025-01-20"));
+        // Teste de Login Correto (Senha ajustada para 5 chars: A1b%2)
+        Senha senhaCerta("A1b%2"); 
+        ASSERT(cp.validarLogin(emailAdmin, senhaCerta), "Aceitar login Admin correto");
 
-    cout << "Criar reserva 1: "
-         << (cr.criarReserva(r1) ? "OK" : "FALHOU") << endl;
+        // Teste de Criação de Gerente
+        Gerente gNew;
+        gNew.setNome(Nome("Novo Gerente"));
+        gNew.setEmail(Email("novo@hotel.com"));
+        gNew.setSenha(Senha("G3r#1"));
+        
+        ASSERT(cp.criarGerente(gNew), "Criar novo Gerente");
+        
+        // Teste de Busca
+        Gerente gBusca;
+        ASSERT(cp.lerGerente(Email("novo@hotel.com"), &gBusca), "Recuperar Gerente criado");
+        ASSERT(gBusca.getNome().getNome() == "Novo Gerente", "Validar dados recuperados");
 
-    // Criar reserva 2 com conflito
-    Reserva r2;
-    r2.setCodigo(Codigo("R2"));
-    r2.setCodigoHotel(Codigo("H1"));
-    r2.setNumeroQuarto(Numero("101"));
-    r2.setDataCheckIn(Data("2025-01-15"));  // conflito
-    r2.setDataCheckOut(Data("2025-01-18"));
-
-    cout << "Criar reserva 2 (deve falhar por conflito): "
-         << (cr.criarReserva(r2) ? "FALHOU" : "OK")
-         << endl;
-
-    // Criar reserva 3 sem conflito
-    Reserva r3;
-    r3.setCodigo(Codigo("R3"));
-    r3.setCodigoHotel(Codigo("H1"));
-    r3.setNumeroQuarto(Numero("101"));
-    r3.setDataCheckIn(Data("2025-01-21"));
-    r3.setDataCheckOut(Data("2025-01-30"));
-
-    cout << "Criar reserva 3: "
-         << (cr.criarReserva(r3) ? "OK" : "FALHOU") << endl;
-
-    // Listar reservas
-    auto lista = cr.listarReservas();
-    cout << "\nListando reservas:\n";
-    for (auto& r : lista) {
-        cout << "- Reserva " << r.getCodigo().getValor() << endl;
+    } catch (const invalid_argument& e) {
+        cout << "\n[ERRO DE VALIDACAO] " << e.what() << endl;
+    } catch (const exception& e) {
+        cout << "\n[ERRO DE EXECUCAO] " << e.what() << endl;
     }
 
-    cout << "\n===== FIM DOS TESTES =====\n";
+    cout << "\n--- FIM DOS TESTES ---" << endl;
     return 0;
 }

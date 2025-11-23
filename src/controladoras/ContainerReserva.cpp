@@ -1,14 +1,29 @@
 #include "ContainerReserva.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 ContainerReserva::ContainerReserva() {}
 
-// Helper: compara strings de data retornadas por Data::getData()
-// ATENÇÃO: funciona corretamente se Data::getData() retorna formato lexicograficamente ordenável,
-// por exemplo \"YYYY-MM-DD\". Se for \"DD/MM/YYYY\" a comparação precisa de normalização.
-static bool overlap(const string& aStart, const string& aEnd, const string& bStart, const string& bEnd) {
+// Helper: Converte "DD/MM/AAAA" para "AAAA-MM-DD" para comparação de strings funcionar
+static string converterParaISO(const string& dataBR) {
+    // Formato esperado: DD/MM/AAAA (10 chars)
+    if (dataBR.length() != 10) return dataBR; 
+    
+    string dia = dataBR.substr(0, 2);
+    string mes = dataBR.substr(3, 2);
+    string ano = dataBR.substr(6, 4);
+    
+    return ano + "-" + mes + "-" + dia;
+}
+
+static bool overlap(const string& aStartBR, const string& aEndBR, const string& bStartBR, const string& bEndBR) {
+    string aStart = converterParaISO(aStartBR);
+    string aEnd   = converterParaISO(aEndBR);
+    string bStart = converterParaISO(bStartBR);
+    string bEnd   = converterParaISO(bEndBR);
+
     return !(aEnd < bStart || bEnd < aStart);
 }
 
@@ -16,14 +31,10 @@ bool ContainerReserva::criarReserva(const Reserva& reserva) {
     string chave = reserva.getCodigo().getCodigo();
     if (dbReservas.count(chave) > 0) return false;
 
-    // verificar conflito global (modelo atual da entidade)
+    // Verificar conflito global de datas (Simplificado pois Reserva nao tem ID do quarto no modelo)
     for (auto& par : dbReservas) {
         const Reserva& r2 = par.second;
-        string s1 = reserva.getChegada().getData();
-        string e1 = reserva.getPartida().getData();
-        string s2 = r2.getChegada().getData();
-        string e2 = r2.getPartida().getData();
-        if (overlap(s1,e1,s2,e2)) return false;
+        if (conflitoDeDatas(reserva, r2)) return false;
     }
 
     dbReservas[chave] = reserva;
@@ -41,15 +52,11 @@ bool ContainerReserva::atualizarReserva(const Reserva& reserva) {
     string chave = reserva.getCodigo().getCodigo();
     if (dbReservas.count(chave) == 0) return false;
 
-    // verificar conflitos com outras reservas (excluindo a própria)
+    // Verificar conflitos ignorando a própria reserva
     for (auto& par : dbReservas) {
         if (par.first == chave) continue;
         const Reserva& r2 = par.second;
-        string s1 = reserva.getChegada().getData();
-        string e1 = reserva.getPartida().getData();
-        string s2 = r2.getChegada().getData();
-        string e2 = r2.getPartida().getData();
-        if (overlap(s1,e1,s2,e2)) return false;
+        if (conflitoDeDatas(reserva, r2)) return false;
     }
 
     dbReservas[chave] = reserva;
@@ -70,9 +77,6 @@ vector<Reserva> ContainerReserva::listarReservas() {
 }
 
 bool ContainerReserva::conflitoDeDatas(const Reserva& r1, const Reserva& r2) {
-    string ini1 = r1.getChegada().getData();
-    string fim1 = r1.getPartida().getData();
-    string ini2 = r2.getChegada().getData();
-    string fim2 = r2.getPartida().getData();
-    return overlap(ini1,fim1,ini2,fim2);
+    return overlap(r1.getChegada().getData(), r1.getPartida().getData(),
+                   r2.getChegada().getData(), r2.getPartida().getData());
 }

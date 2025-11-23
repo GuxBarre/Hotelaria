@@ -33,8 +33,8 @@ public:
     std::vector<Hotel> listarHoteis();
     std::vector<Quarto> listarQuartos();
 
-    // Função de apoio
-    bool hotelTemQuartos(const Codigo& codigo);
+    // Função de apoio (considerando seu modelo atual, sem relação Quarto->Hotel)
+    bool hotelExiste(const Codigo& codigo);
 };
 
 #endif
