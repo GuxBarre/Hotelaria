@@ -1,25 +1,24 @@
 #ifndef CNTRAPRESENTACAOAUTENTICACAO_H
 #define CNTRAPRESENTACAOAUTENTICACAO_H
 
-#include "Interfaces.h"
+#include "../Interfaces.h"
 #include "../dominios/Email.h"
 #include "../dominios/Senha.h"
+#include "../dominios/Nome.h"
+#include "../dominios/Ramal.h"
+#include "../entidades/Gerente.h"
 
 class CntrApresentacaoAutenticacao {
 private:
-    // Ponteiro para a interface do serviço (Desacoplamento)
-    IServicoAutenticacao* servico;
+    IServicoAutenticacao* servicoAuth;
+    IServicoPessoal* servicoPessoal;
 
 public:
-    // Injeta o serviço a ser usado
-    void setServico(IServicoAutenticacao* servico);
+    void setServicoAutenticacao(IServicoAutenticacao* servico);
+    void setServicoPessoal(IServicoPessoal* servico);
 
-    /**
-     * @brief Executa o fluxo de autenticação.
-     * @param email Ponteiro para armazenar o email autenticado (retorno).
-     * @return true se login sucesso, false se falha.
-     */
     bool autenticar(Email* email);
+    void cadastrar();
 };
 
 #endif

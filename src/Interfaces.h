@@ -10,29 +10,19 @@
 #include <vector>
 #include <string>
 
-// ------------------------------------------------------------------
-// Interface de Autenticação
-// Responsável apenas pelo login do Gerente [cite: 12]
-// ------------------------------------------------------------------
 class IServicoAutenticacao {
 public:
     virtual ~IServicoAutenticacao() {}
-    
-    // Retorna true se email e senha conferem, false caso contrário
     virtual bool autenticar(const Email& email, const Senha& senha) = 0;
 };
 
-// ------------------------------------------------------------------
-// Interface de Serviços relacionados a Pessoas (Gerente e Hóspede)
-// [cite: 14, 15, 17]
-// ------------------------------------------------------------------
 class IServicoPessoal {
 public:
     virtual ~IServicoPessoal() {}
 
     // --- CRUD Gerente ---
     virtual bool criarGerente(const Gerente& gerente) = 0;
-    virtual bool lerGerente(const Email& email, Gerente* gerente) = 0; // Passar ponteiro para preencher
+    virtual bool lerGerente(const Email& email, Gerente* gerente) = 0;
     virtual bool atualizarGerente(const Gerente& gerente) = 0;
     virtual bool excluirGerente(const Email& email) = 0;
 
@@ -46,10 +36,6 @@ public:
     virtual std::vector<Hospede> listarHospedes() = 0;
 };
 
-// ------------------------------------------------------------------
-// Interface de Serviços de Hotelaria (Hotéis e Quartos)
-// [cite: 14, 15, 16]
-// ------------------------------------------------------------------
 class IServicoHotelaria {
 public:
     virtual ~IServicoHotelaria() {}
@@ -61,20 +47,16 @@ public:
     virtual bool excluirHotel(const Codigo& codigo) = 0;
 
     // --- CRUD Quarto ---
-    virtual bool criarQuarto(const Quarto& quarto) = 0;
-    virtual bool lerQuarto(const Numero& numero, Quarto* quarto) = 0;
-    virtual bool atualizarQuarto(const Quarto& quarto) = 0;
-    virtual bool excluirQuarto(const Numero& numero) = 0;
+    virtual bool criarQuarto(const Quarto& quarto, const Codigo& codigoHotel) = 0;
+    virtual bool lerQuarto(const Numero& numero, const Codigo& codigoHotel, Quarto* quarto) = 0;
+    virtual bool atualizarQuarto(const Quarto& quarto, const Codigo& codigoHotel) = 0;
+    virtual bool excluirQuarto(const Numero& numero, const Codigo& codigoHotel) = 0;
 
     // --- Listagens ---
     virtual std::vector<Hotel> listarHoteis() = 0;
-    virtual std::vector<Quarto> listarQuartos() = 0;
+    virtual std::vector<Quarto> listarQuartos(const Codigo& codigoHotel) = 0;
 };
 
-// ------------------------------------------------------------------
-// Interface de Serviços de Reservas
-// [cite: 15, 17]
-// ------------------------------------------------------------------
 class IServicoReservas {
 public:
     virtual ~IServicoReservas() {}

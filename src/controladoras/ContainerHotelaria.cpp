@@ -1,5 +1,4 @@
 #include "ContainerHotelaria.h"
-#include <iostream>
 
 using namespace std;
 
@@ -24,6 +23,9 @@ bool ContainerHotelaria::lerHotel(const Codigo& codigo, Hotel* hotel) {
 bool ContainerHotelaria::atualizarHotel(const Hotel& hotel) {
     string chave = hotel.getCodigo().getCodigo();
     if (dbHoteis.count(chave) == 0) return false;
+    vector<Quarto> quartosAntigos = dbHoteis[chave].getQuartos();
+    
+    Hotel hotelAtualizado = hotel; 
     dbHoteis[chave] = hotel;
     return true;
 }
@@ -31,42 +33,56 @@ bool ContainerHotelaria::atualizarHotel(const Hotel& hotel) {
 bool ContainerHotelaria::excluirHotel(const Codigo& codigo) {
     string chave = codigo.getCodigo();
     if (dbHoteis.count(chave) == 0) return false;
-
-    // OBS: seu Quarto não referencia o hotel (não existe getCodigoHotel()),
-    // então não há como verificar quartos que pertencem a este hotel.
-    // Neste modelo atual permitimos excluir o hotel diretamente.
     dbHoteis.erase(chave);
     return true;
 }
 
 // ------------------------ CRUD QUARTO ----------------------------------
 
-bool ContainerHotelaria::criarQuarto(const Quarto& quarto) {
-    string chave = to_string(quarto.getNumero().getNumero());
-    if (dbQuartos.count(chave) > 0) return false;
-    dbQuartos[chave] = quarto;
+bool ContainerHotelaria::criarQuarto(const Quarto& quarto, const Codigo& codigoHotel) {
+    string chaveHotel = codigoHotel.getCodigo();
+    if (dbHoteis.count(chaveHotel) == 0) {
+        return false;
+    }
+    Quarto qAux;
+    if (lerQuarto(quarto.getNumero(), codigoHotel, &qAux)) {
+        return false; 
+    }
+    dbHoteis[chaveHotel].adicionarQuarto(quarto); 
+    
     return true;
 }
 
-bool ContainerHotelaria::lerQuarto(const Numero& numero, Quarto* quarto) {
-    string chave = to_string(numero.getNumero());
-    if (dbQuartos.count(chave) == 0) return false;
-    *quarto = dbQuartos[chave];
-    return true;
+bool ContainerHotelaria::lerQuarto(const Numero& numero, const Codigo& codigoHotel, Quarto* quarto) {
+    string chaveHotel = codigoHotel.getCodigo();
+    if (dbHoteis.count(chaveHotel) == 0) return false;
+    vector<Quarto> lista = dbHoteis[chaveHotel].getQuartos();
+    
+    for(const auto& q : lista) {
+        if (q.getNumero().getNumero() == numero.getNumero()) {
+            *quarto = q;
+            return true;
+        }
+    }
+    return false;
 }
 
-bool ContainerHotelaria::atualizarQuarto(const Quarto& quarto) {
-    string chave = to_string(quarto.getNumero().getNumero());
-    if (dbQuartos.count(chave) == 0) return false;
-    dbQuartos[chave] = quarto;
-    return true;
+bool ContainerHotelaria::atualizarQuarto(const Quarto& quarto, const Codigo& codigoHotel) {
+    string chaveHotel = codigoHotel.getCodigo();
+    if (dbHoteis.count(chaveHotel) == 0) return false;
+    vector<Quarto>& lista = dbHoteis[chaveHotel].getQuartosRef();
+    bool removeu = dbHoteis[chaveHotel].removerQuarto(quarto.getNumero());
+    if (removeu) {
+        dbHoteis[chaveHotel].adicionarQuarto(quarto);
+        return true;
+    }
+    return false;
 }
 
-bool ContainerHotelaria::excluirQuarto(const Numero& numero) {
-    string chave = to_string(numero.getNumero());
-    if (dbQuartos.count(chave) == 0) return false;
-    dbQuartos.erase(chave);
-    return true;
+bool ContainerHotelaria::excluirQuarto(const Numero& numero, const Codigo& codigoHotel) {
+    string chaveHotel = codigoHotel.getCodigo();
+    if (dbHoteis.count(chaveHotel) == 0) return false;
+    return dbHoteis[chaveHotel].removerQuarto(numero);
 }
 
 // ------------------------ LISTAGEM -------------------------------------
@@ -77,10 +93,11 @@ vector<Hotel> ContainerHotelaria::listarHoteis() {
     return lista;
 }
 
-vector<Quarto> ContainerHotelaria::listarQuartos() {
-    vector<Quarto> lista;
-    for (auto& par : dbQuartos) lista.push_back(par.second);
-    return lista;
+vector<Quarto> ContainerHotelaria::listarQuartos(const Codigo& codigoHotel) {
+    string chaveHotel = codigoHotel.getCodigo();
+    if (dbHoteis.count(chaveHotel) == 0) return {};
+    
+    return dbHoteis[chaveHotel].getQuartos();
 }
 
 bool ContainerHotelaria::hotelExiste(const Codigo& codigo) {

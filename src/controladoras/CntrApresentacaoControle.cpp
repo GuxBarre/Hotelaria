@@ -189,19 +189,16 @@ void CntrApresentacaoControle::menuHotelaria() {
         switch (opcao) {
             case 1: cadastrarHotel(); break; 
             case 2: listarHoteis(); break;   
-            case 3: cadastrarQuarto(); break; 
+            case 3: criarQuarto(); break; 
             case 4: listarQuartos(); break;   
             case 0: break;
             default: cout << "\nOpcao invalida!";
         }
         if (opcao != 0)
         {
-            // 1. Limpa o buffer de ENTRADA por completo (descarta todos os Enter, espaços, etc.)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             cout << "\nPressione Enter para continuar...";
-
-            // 2. Espera a próxima tecla (o Enter que o usuário vai apertar AGORA)
             cin.get();
         }
     } while (opcao != 0);
@@ -247,47 +244,57 @@ void CntrApresentacaoControle::cadastrarHotel() {
     }
 }
 
-void CntrApresentacaoControle::cadastrarQuarto() {
-    int numeroInt, capacidadeInt, ramalInt;
-    double diariaDouble;
-    string buffer;
+void CntrApresentacaoControle::criarQuarto() {
+    limparTela();
+    cout << "\n=== CADASTRO DE QUARTO ===" << endl;
+    cout << "\n[Hoteis Disponiveis]:" << endl;
+    vector<Hotel> hoteis = servicoHotelaria->listarHoteis();
+    if (hoteis.empty()) {
+        cout << "Nenhum hotel cadastrado. Cadastre um hotel primeiro!" << endl;
+        cout << "Pressione Enter para voltar...";
+        cin.ignore(); cin.get();
+        return;
+    }
 
-    cout << "\n--- Novo Quarto ---" << endl;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    for (const auto& h : hoteis) {
+        cout << "- " << h.getNome().getNome() 
+             << " (Codigo: " << h.getCodigo().getCodigo() << ")" << endl;
+    }
+    cout << "--------------------------" << endl;
+
+    string codigoHotelStr, numeroStr, diariaStr, capacidadeStr;
 
     try {
-        cout << "Numero (1-999): ";
-        cin >> numeroInt;
-        Numero numero(numeroInt);
+        cout << "Digite o CODIGO do Hotel para este quarto: ";
+        cin >> codigoHotelStr;
+        Codigo codigoHotel(codigoHotelStr);
+
+        cout << "Numero do Quarto: ";
+        cin >> numeroStr;
+        Numero numero(stoi(numeroStr));
 
         cout << "Capacidade (1-4): ";
-        cin >> capacidadeInt;
-        Capacidade capacidade(capacidadeInt);
+        cin >> capacidadeStr;
+        Capacidade capacidade(stoi(capacidadeStr));
 
-        cout << "Diaria (0,01 a 1M): R$ ";
-        cin >> diariaDouble;
-        Dinheiro diaria(diariaDouble);
-
-        cout << "Ramal (0-50): ";
-        cin >> ramalInt;
-        Ramal ramal(ramalInt);
+        cout << "Diaria: ";
+        cin >> diariaStr;
+        Dinheiro diaria(stod(diariaStr)); 
 
         Quarto novoQuarto;
         novoQuarto.setNumero(numero);
         novoQuarto.setCapacidade(capacidade);
         novoQuarto.setDiaria(diaria);
-        novoQuarto.setRamal(ramal);
-
-        if (servicoHotelaria->criarQuarto(novoQuarto)) {
-            cout << "\nQuarto " << numeroInt << " cadastrado!" << endl;
+        if (servicoHotelaria->criarQuarto(novoQuarto, codigoHotel)) {
+            cout << "\n[SUCESSO] Quarto criado e vinculado ao hotel!" << endl;
         } else {
-            cout << "\n Falha ao cadastrar no sistema." << endl;
+            cout << "\n[ERRO] Hotel nao encontrado ou quarto ja existe." << endl;
         }
 
     } catch (const invalid_argument& e) {
-        cout <<  e.what() << endl;
-    } catch (const exception& e) {
-        cout << "Falha de entrada ou conversao: " << e.what() << endl;
+        cout << "\n[ERRO DE VALIDACAO] " << e.what() << endl;
+    } catch (...) {
+        cout << "\n[ERRO] Entrada invalida." << endl;
     }
 }
 
@@ -312,22 +319,36 @@ void CntrApresentacaoControle::listarHoteis() {
 }
 
 void CntrApresentacaoControle::listarQuartos() {
-    cout << "\n--- Lista de Quartos ---" << endl;
-    
-    std::vector<Quarto> lista = servicoHotelaria->listarQuartos();
+    limparTela();
+    cout << "\n=== LISTAGEM DE QUARTOS ===" << endl;
 
-    if (lista.empty()) {
-        cout << "Nenhum quarto encontrado." << endl;
-    } else {
-        cout << "Total encontrado: " << lista.size() << endl;
-        for (const auto& q : lista) {
-            cout << "------------------------------------------" << endl;
-            cout << "Numero:     " << string(q.getNumero()) << endl;
-            cout << "Capacidade: " << string(q.getCapacidade()) << " pessoas" << endl;
-            cout << "Diaria:     R$ " << string(q.getDiaria()) << endl;
-            cout << "Ramal:      " << string(q.getRamal()) << endl;
+    vector<Hotel> hoteis = servicoHotelaria->listarHoteis();
+    for (const auto& h : hoteis) {
+        cout << "- " << h.getNome().getNome() << " [" << h.getCodigo().getCodigo() << "]" << endl;
+    }
+    cout << "---------------------------" << endl;
+
+    string codigoStr;
+    cout << "Digite o CODIGO do Hotel para ver os quartos: ";
+    cin >> codigoStr;
+
+    try {
+        Codigo codigoHotel(codigoStr);
+        vector<Quarto> lista = servicoHotelaria->listarQuartos(codigoHotel);
+
+        if (lista.empty()) {
+            cout << "\nNenhum quarto encontrado neste hotel." << endl;
+        } else {
+            cout << "\n--- Quartos do Hotel " << codigoStr << " ---" << endl;
+            for (const auto& q : lista) {
+                cout << "Quarto: " << q.getNumero().getNumero() 
+                     << " | Cap: " << q.getCapacidade().getCapacidade()
+                     << " | R$ " << q.getDiaria().getDinheiro() << endl;
+            }
         }
-        cout << "------------------------------------------" << endl;
+
+    } catch (const invalid_argument& e) {
+        cout << "[ERRO] Codigo de hotel invalido: " << e.what() << endl;
     }
 }
 
@@ -359,12 +380,9 @@ void CntrApresentacaoControle::menuReservas() {
         }
         if (opcao != 0)
         {
-            // 1. Limpa o buffer de ENTRADA por completo (descarta todos os Enter, espaços, etc.)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             cout << "\nPressione Enter para continuar...";
-
-            // 2. Espera a próxima tecla (o Enter que o usuário vai apertar AGORA)
             cin.get();
         }
     } while (opcao != 0);

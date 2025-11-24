@@ -6,9 +6,13 @@
 #include "../dominios/Telefone.h"
 #include "../dominios/Codigo.h"
 
+#include "Quarto.h"
+#include "../dominios/Numero.h"
+#include <vector>
+
 /**
  * @brief Entidade que representa um Hotel.
- * Contém Nome, Endereço, Telefone e Código (Identificador).
+ * Contém Nome, Endereço, Telefone, Código e sua lista de Quartos.
  */
 class Hotel {
     private:
@@ -16,16 +20,10 @@ class Hotel {
         Endereco endereco;
         Telefone telefone;
         Codigo codigo;
+        std::vector<Quarto> quartos;
 
     public:
-        /**
-         * @brief Construtor padrão.
-         */
         Hotel();
-
-        /**
-         * @brief Destrutor virtual.
-         */
         virtual ~Hotel();
 
         void setNome(const Nome& nome);
@@ -39,6 +37,10 @@ class Hotel {
 
         void setCodigo(const Codigo& codigo);
         Codigo getCodigo() const;
-}; // <--- Faltava esse ponto e vírgula
+        void adicionarQuarto(const Quarto& quarto);
+        std::vector<Quarto>& getQuartosRef();
+        std::vector<Quarto> getQuartos() const;
+        bool removerQuarto(const Numero& numero);
+};
 
-#endif // HOTEL_H
+#endif

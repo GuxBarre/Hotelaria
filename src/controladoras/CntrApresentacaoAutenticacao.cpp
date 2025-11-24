@@ -1,6 +1,6 @@
 #include "CntrApresentacaoAutenticacao.h"
 #include <iostream>
-#include <limits> 
+#include <limits>
 
 using namespace std;
 
@@ -11,8 +11,63 @@ static void limparTela() {
         system("clear");
     #endif
 }
-void CntrApresentacaoAutenticacao::setServico(IServicoAutenticacao* servico) {
-    this->servico = servico;
+
+void CntrApresentacaoAutenticacao::setServicoAutenticacao(IServicoAutenticacao* servico) {
+    this->servicoAuth = servico;
+}
+
+void CntrApresentacaoAutenticacao::setServicoPessoal(IServicoPessoal* servico) {
+    this->servicoPessoal = servico;
+}
+
+void CntrApresentacaoAutenticacao::cadastrar() {
+    limparTela();
+    cout << "\n----------------------------------------" << endl;
+    cout << "        CADASTRO DE NOVO GERENTE        " << endl;
+    cout << "----------------------------------------" << endl;
+
+    string nomeStr, emailStr, senhaStr;
+    int ramal;
+
+    try {
+        cout << "Digite o Nome Completo: ";
+        cin.ignore();
+        getline(cin, nomeStr); 
+        Nome nome(nomeStr);
+
+        cout << "Digite o Email: ";
+        cin >> emailStr;
+        Email email(emailStr);
+
+        cout << "Digite a Senha: ";
+        cin >> senhaStr;
+        Senha senha(senhaStr);
+        
+        cout << "Digite o Ramal: ";
+        cin >> ramal;
+        Ramal ramal(ramal);
+
+        Gerente novoGerente;
+        novoGerente.setNome(nome);
+        novoGerente.setEmail(email);
+        novoGerente.setSenha(senha);
+        novoGerente.setRamal(ramal);
+
+        if (servicoPessoal->criarGerente(novoGerente)) {
+            cout << "\nGerente cadastrado com sucesso!" << endl;
+            cout << "Pressione qualquer tecla para voltar ao login...";
+            cin.ignore(); cin.get();
+        } else {
+            cout << "\n[FALHA] Não foi possível cadastrar (email já existe?)." << endl;
+            cout << "Pressione qualquer tecla para voltar...";
+            cin.ignore(); cin.get();
+        }
+
+    } catch (const invalid_argument& e) {
+        cout << e.what() << endl;
+        cout << "Pressione qualquer tecla para tentar novamente...";
+        cin.get();
+    }
 }
 
 bool CntrApresentacaoAutenticacao::autenticar(Email* email) {
@@ -21,36 +76,45 @@ bool CntrApresentacaoAutenticacao::autenticar(Email* email) {
     while (true) {
         limparTela();
         cout << "\n----------------------------------------" << endl;
-        cout << "          SISTEMA HOTELEIRO - LOGIN     " << endl;
+        cout << "         SISTEMA HOTELEIRO        " << endl;
         cout << "----------------------------------------" << endl;
-
-        cout << "Digite o Email: ";
-        cin >> emailStr;
+        cout << "1. Fazer Login" << endl;
+        cout << "2. Criar Nova Conta (Gerente)" << endl;
+        cout << "3. Sair" << endl;
+        cout << "Opcao: ";
         
-        cout << "Digite a Senha: ";
-        cin >> senhaStr;
+        int opcao;
+        cin >> opcao;
 
-        try {
-            // 1. Validação de Formato (Camada de Apresentação)
-            Email emailDigitado(emailStr);
-            Senha senhaDigitada(senhaStr);
-
-            // 2. Chama o Serviço (Camada de Serviço)
-            if (servico->autenticar(emailDigitado, senhaDigitada)) {
-                *email = emailDigitado; // Retorna o email autenticado
-                return true;
-            } else {
-                cout << "\n[ERRO] Email ou senha incorretos (banco de dados)." << endl;
-            }
-
-        } catch (const invalid_argument& e) {
-            // Captura erros de formato dos Domínios
-            cout << e.what() << endl;
+        if (opcao == 2) {
+            cadastrar();
+            continue;
         }
+        else if (opcao == 3) {
+            return false;
+        }
+        else if (opcao == 1) {
+            cout << "\n--- LOGIN ---" << endl;
+            cout << "Digite o Email: ";
+            cin >> emailStr;
+            cout << "Digite a Senha: ";
+            cin >> senhaStr;
 
-        cout << "Tentar novamente? (S/N): ";
-        char op;
-        cin >> op;
-        if (op == 'N' || op == 'n') return false;
+            try {
+                Email emailDigitado(emailStr);
+                Senha senhaDigitada(senhaStr);
+                if (servicoAuth->autenticar(emailDigitado, senhaDigitada)) {
+                    *email = emailDigitado;
+                    return true;
+                } else {
+                    cout << "\n[ERRO] Email ou senha incorretos." << endl;
+                    cout << "Pressione Enter para continuar...";
+                    cin.ignore(); cin.get(); 
+                }
+            } catch (const invalid_argument& e) {
+                cout << "\n[ERRO] " << e.what() << endl;
+                cin.ignore(); cin.get();
+            }
+        }
     }
 }

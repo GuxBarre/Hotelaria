@@ -20,7 +20,7 @@ private:
 
     void cadastrarHotel();
     void listarHoteis();
-    void cadastrarQuarto();
+    void criarQuarto();
     void listarQuartos();
 
     void cadastrarReserva();

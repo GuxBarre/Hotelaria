@@ -12,28 +12,26 @@
 class ContainerHotelaria {
 private:
     std::map<std::string, Hotel> dbHoteis;
-    std::map<std::string, Quarto> dbQuartos;
 
 public:
     ContainerHotelaria();
-
-    // CRUD Hotel
+    // CRUD HOTEL
     bool criarHotel(const Hotel& hotel);
     bool lerHotel(const Codigo& codigo, Hotel* hotel);
     bool atualizarHotel(const Hotel& hotel);
     bool excluirHotel(const Codigo& codigo);
 
-    // CRUD Quarto
-    bool criarQuarto(const Quarto& quarto);
-    bool lerQuarto(const Numero& numero, Quarto* quarto);
-    bool atualizarQuarto(const Quarto& quarto);
-    bool excluirQuarto(const Numero& numero);
+    // CRUD QUARTO
+    bool criarQuarto(const Quarto& quarto, const Codigo& codigoHotel); 
+    bool lerQuarto(const Numero& numero, const Codigo& codigoHotel, Quarto* quarto);
+    bool atualizarQuarto(const Quarto& quarto, const Codigo& codigoHotel);
+    bool excluirQuarto(const Numero& numero, const Codigo& codigoHotel);
 
-    // Listagens
+    // LISTAGENS
     std::vector<Hotel> listarHoteis();
-    std::vector<Quarto> listarQuartos();
+    std::vector<Quarto> listarQuartos(const Codigo& codigoHotel);
 
-    // Função de apoio (considerando seu modelo atual, sem relação Quarto->Hotel)
+
     bool hotelExiste(const Codigo& codigo);
 };
 

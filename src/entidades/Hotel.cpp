@@ -36,3 +36,24 @@ void Hotel::setCodigo(const Codigo& codigo) {
 Codigo Hotel::getCodigo() const {
     return this->codigo;
 }
+
+void Hotel::adicionarQuarto(const Quarto& quarto) {
+    this->quartos.push_back(quarto);
+}
+
+std::vector<Quarto> Hotel::getQuartos() const {
+    return this->quartos;
+}
+
+bool Hotel::removerQuarto(const Numero& numero) {
+    for (auto it = quartos.begin(); it != quartos.end(); ++it) {
+        if (it->getNumero().getNumero() == numero.getNumero()) {
+            quartos.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+std::vector<Quarto>& Hotel::getQuartosRef() {
+    return this->quartos;
+}

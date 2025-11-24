@@ -2,44 +2,57 @@
 #include "dominios/Email.h"
 #include "controladoras/CntrApresentacaoAutenticacao.h"
 #include "controladoras/CntrApresentacaoControle.h"
-#include "stubs/Stubs.h" // Inclui nossos serviços falsos
+
+#include "controladoras/ContainerPessoal.h"
+#include "controladoras/CntrPessoal.h"
+#include "controladoras/ContainerHotelaria.h"
+#include "controladoras/CntrlHotelaria.h"
+#include "controladoras/ContainerReserva.h"
+#include "controladoras/CntrlReservas.h"
+#include "controladoras/CntrServicoAutenticacao.h"
 
 using namespace std;
 
 int main() {
-    // 1. Instanciar os Serviços (Stubs por enquanto)
-    StubServicoAutenticacao stubAuth;
-    StubServicoPessoal      stubPessoal;
-    StubServicoHotelaria    stubHotelaria;
-    StubServicoReservas     stubReservas;
+    
+    //pessoal
+    ContainerPessoal containerPessoal;
+    CntrServicoPessoal servicoPessoal;
+    servicoPessoal.setContainer(&containerPessoal);
 
-    // 2. Instanciar as Controladoras de Apresentação
+    //hotelaria
+    ContainerHotelaria ContainerHotelaria;
+    CntrServicoHotelaria servicoHotelaria;
+    servicoHotelaria.setContainer(&ContainerHotelaria);
+
+    //reservas
+    ContainerReserva ContainerReservas;
+    CntrServicoReservas servicoReservas;
+    servicoReservas.setContainer(&ContainerReservas);
+    
+    //apresentação & autenticacao
     CntrApresentacaoAutenticacao cntrAutenticacao;
     CntrApresentacaoControle     cntrControle;
+    CntrServicoAutenticacao      servicoAutenticacao;
+    servicoAutenticacao.setContainer(&containerPessoal);
+    //ligar Controladoras aos Serviços
+    cntrAutenticacao.setServicoPessoal(&servicoPessoal);
+    cntrAutenticacao.setServicoAutenticacao(&servicoAutenticacao);
+    cntrControle.setServicoPessoal(&servicoPessoal);
+    cntrControle.setServicoHotelaria(&servicoHotelaria);
+    cntrControle.setServicoReservas(&servicoReservas);
 
-    // 3. Ligar Controladoras aos Serviços (Injeção de Dependência)
-    cntrAutenticacao.setServico(&stubAuth);
-    
-    cntrControle.setServicoPessoal(&stubPessoal);
-    cntrControle.setServicoHotelaria(&stubHotelaria);
-    cntrControle.setServicoReservas(&stubReservas);
-
-    // 4. Executar o Fluxo do Sistema
+    //fluxo do Sistema
     Email emailUsuario;
     bool logado = false;
 
     while (true) {
-        // Tela de Login
         logado = cntrAutenticacao.autenticar(&emailUsuario);
 
         if (logado) {
-            // Se logou, vai para o Menu Principal
             cntrControle.executar(emailUsuario);
-            
-            // Ao sair do menu principal (Logout), o loop reinicia e pede login de novo
             cout << "\nEfetuando logout...\n" << endl;
         } else {
-            // Se usuário escolheu sair na tela de login
             cout << "Encerrando sistema." << endl;
             break;
         }
