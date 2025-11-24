@@ -14,6 +14,8 @@ private:
 
     void menuPessoas();
     void menuHotelaria();
+    void editarMinhaConta(const Email& email);
+    bool excluirMinhaConta(const Email& email);
     void menuReservas();
     void cadastrarHospede();
     void listarHospedes();

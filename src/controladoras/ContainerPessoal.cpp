@@ -4,9 +4,7 @@
 using namespace std;
 
 ContainerPessoal::ContainerPessoal() {
-    // Criar Gerente Admin padrão ao iniciar o container
     try {
-        // Construtores de domínio validam formato
         Email emailAdmin("admin@admin.com");
         Senha senhaAdmin("A1b%2"); 
         Nome nomeAdmin("Administrador");
@@ -15,8 +13,6 @@ ContainerPessoal::ContainerPessoal() {
         admin.setEmail(emailAdmin);
         admin.setSenha(senhaAdmin);
         admin.setNome(nomeAdmin);
-
-        // Usa getEmail() conforme sua classe Email
         dbGerentes[emailAdmin.getEmail()] = admin; 
 
         cout << "[ContainerPessoal] Admin criado com sucesso.\n";
@@ -30,7 +26,7 @@ ContainerPessoal::ContainerPessoal() {
 // AUTENTICAÇÃO
 // ----------------------------------------------------------------------
 bool ContainerPessoal::validarLogin(const Email& email, const Senha& senha) {
-    string chave = email.getEmail(); // Corrigido de getValor()
+    string chave = email.getEmail();
 
     if (dbGerentes.count(chave) == 0)
         return false;
@@ -43,7 +39,7 @@ bool ContainerPessoal::validarLogin(const Email& email, const Senha& senha) {
 // CRUD GERENTE
 // ----------------------------------------------------------------------
 bool ContainerPessoal::criarGerente(const Gerente& gerente) {
-    string chave = gerente.getEmail().getEmail(); // Corrigido
+    string chave = gerente.getEmail().getEmail();
 
     if (dbGerentes.count(chave) > 0)
         return false; // já existe
@@ -53,7 +49,7 @@ bool ContainerPessoal::criarGerente(const Gerente& gerente) {
 }
 
 bool ContainerPessoal::lerGerente(const Email& email, Gerente* gerente) {
-    string chave = email.getEmail(); // Corrigido
+    string chave = email.getEmail();
 
     if (dbGerentes.count(chave) == 0)
         return false;
@@ -63,7 +59,7 @@ bool ContainerPessoal::lerGerente(const Email& email, Gerente* gerente) {
 }
 
 bool ContainerPessoal::atualizarGerente(const Gerente& gerente) {
-    string chave = gerente.getEmail().getEmail(); // Corrigido
+    string chave = gerente.getEmail().getEmail();
 
     if (dbGerentes.count(chave) == 0)
         return false;
@@ -73,7 +69,7 @@ bool ContainerPessoal::atualizarGerente(const Gerente& gerente) {
 }
 
 bool ContainerPessoal::excluirGerente(const Email& email) {
-    string chave = email.getEmail(); // Corrigido
+    string chave = email.getEmail();
 
     if (dbGerentes.count(chave) == 0)
         return false;
@@ -86,7 +82,7 @@ bool ContainerPessoal::excluirGerente(const Email& email) {
 // CRUD HÓSPEDE
 // ----------------------------------------------------------------------
 bool ContainerPessoal::criarHospede(const Hospede& hospede) {
-    string chave = hospede.getEmail().getEmail(); // Corrigido
+    string chave = hospede.getEmail().getEmail();
 
     if (dbHospedes.count(chave) > 0)
         return false;
@@ -96,7 +92,7 @@ bool ContainerPessoal::criarHospede(const Hospede& hospede) {
 }
 
 bool ContainerPessoal::lerHospede(const Email& email, Hospede* hospede) {
-    string chave = email.getEmail(); // Corrigido
+    string chave = email.getEmail();
 
     if (dbHospedes.count(chave) == 0)
         return false;
@@ -106,7 +102,7 @@ bool ContainerPessoal::lerHospede(const Email& email, Hospede* hospede) {
 }
 
 bool ContainerPessoal::atualizarHospede(const Hospede& hospede) {
-    string chave = hospede.getEmail().getEmail(); // Corrigido
+    string chave = hospede.getEmail().getEmail();
 
     if (dbHospedes.count(chave) == 0)
         return false;
@@ -116,7 +112,7 @@ bool ContainerPessoal::atualizarHospede(const Hospede& hospede) {
 }
 
 bool ContainerPessoal::excluirHospede(const Email& email) {
-    string chave = email.getEmail(); // Corrigido
+    string chave = email.getEmail();
 
     if (dbHospedes.count(chave) == 0)
         return false;

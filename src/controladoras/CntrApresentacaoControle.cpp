@@ -25,16 +25,23 @@ void CntrApresentacaoControle::setServicoReservas(IServicoReservas* servico) {
 void CntrApresentacaoControle::executar(const Email& email) {
     this->emailGerente = email;
     int opcao;
+    string nomeExibicao = string(email);
+    Gerente gerenteLogado;
+    if (servicoPessoal->lerGerente(email, &gerenteLogado)) {
+        nomeExibicao = string(gerenteLogado.getNome()); 
+    }
 
     do {
         limparTela();
         cout << "\n========================================" << endl;
         cout << "           MENU PRINCIPAL               " << endl;
-        cout << "   Usuario: " << string(emailGerente) << endl;
+        cout << "   Ola, " << nomeExibicao << endl;
         cout << "========================================" << endl;
         cout << "1. Gestao de Pessoas (Gerentes/Hospedes)" << endl;
         cout << "2. Gestao de Hotelaria (Hoteis/Quartos)" << endl;
         cout << "3. Gestao de Reservas" << endl;
+        cout << "4. Editar Meus Dados" << endl;
+        cout << "5. Excluir Minha Conta" << endl;
         cout << "0. Sair / Logout" << endl;
         cout << "Escolha: ";
         
@@ -50,6 +57,15 @@ void CntrApresentacaoControle::executar(const Email& email) {
             case 1: menuPessoas(); break;
             case 2: menuHotelaria(); break;
             case 3: menuReservas(); break;
+            case 4: 
+                editarMinhaConta(emailGerente); 
+                break;
+            case 5:
+                if (excluirMinhaConta(emailGerente)) {
+                    cout << "Voltando para a tela de login..." << endl;
+                    opcao = 0;
+                }
+                break;
             case 0: cout << "Saindo..." << endl; break;
             default: 
                 cout << "Opcao invalida!" << endl;
@@ -451,4 +467,73 @@ void CntrApresentacaoControle::listarReservas() {
         }
         cout << "------------------------------------------" << endl;
     }
+}
+void CntrApresentacaoControle::editarMinhaConta(const Email& email) {
+    limparTela();
+    cout << "\n=== EDITAR MEUS DADOS ===" << endl;
+    cout << "Email (Nao pode ser alterado): " << email.getEmail() << endl;
+
+    string nomeStr, senhaStr;
+    int ramal;
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    try {
+        cout << "Novo Nome: ";
+        getline(cin, nomeStr);
+        
+        cout << "Nova Senha: ";
+        cin >> senhaStr; 
+        
+        cout << "Novo Ramal: ";
+        cin >> ramal;
+
+        Gerente gerenteAtualizado;
+        gerenteAtualizado.setEmail(email);
+        gerenteAtualizado.setNome(Nome(nomeStr));
+        gerenteAtualizado.setSenha(Senha(senhaStr));
+        gerenteAtualizado.setRamal(Ramal(ramal));
+        if (servicoPessoal->atualizarGerente(gerenteAtualizado)) {
+            cout << "\n[SUCESSO] Seus dados foram atualizados!" << endl;
+        } else {
+            cout << "\n[ERRO] Falha ao atualizar dados." << endl;
+        }
+
+    } catch (const invalid_argument& e) {
+        cout << "\n[ERRO DE VALIDACAO] " << e.what() << endl;
+    } catch (...) {
+        cout << "\n[ERRO] Entrada invalida." << endl;
+    }
+
+    cout << "Pressione Enter para voltar...";
+    cin.ignore(); cin.get();
+}
+
+bool CntrApresentacaoControle::excluirMinhaConta(const Email& email) {
+    limparTela();
+    cout << "\n=== EXCLUIR MINHA CONTA ===" << endl;
+    cout << "ATENCAO: Esta acao e irreversivel." << endl;
+    cout << "Tem certeza que deseja excluir a conta " << email.getEmail() << "? (S/N): ";
+    
+    char resp;
+    cin >> resp;
+
+    if (resp == 'S' || resp == 's') {
+        if (servicoPessoal->excluirGerente(email)) {
+            cout << "\n[SUCESSO] Conta excluida permanentemente." << endl;
+            cout << "Pressione Enter para confirmar...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            cin.get();
+            return true;
+        } else {
+            cout << "\n[ERRO] Nao foi possivel excluir a conta." << endl;
+        }
+    } else {
+        cout << "\nOperacao cancelada." << endl;
+    }
+
+    cout << "Pressione Enter para voltar...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    cin.get();
+    return false;
 }
