@@ -14,19 +14,28 @@ private:
 
     void menuPessoas();
     void menuHotelaria();
+    void menuReservas();
+
     void editarMinhaConta(const Email& email);
     bool excluirMinhaConta(const Email& email);
-    void menuReservas();
+
     void cadastrarHospede();
     void listarHospedes();
+    void editarHospede();
+    void excluirHospede();
 
     void cadastrarHotel();
     void listarHoteis();
+    void editarHotel();
+    void excluirHotel();
+    
     void criarQuarto();
     void listarQuartos();
 
     void cadastrarReserva();
     void listarReservas();
+    void editarReserva();
+    void excluirReserva();
 
 public:
     void setServicoPessoal(IServicoPessoal* servico);

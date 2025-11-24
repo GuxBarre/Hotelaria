@@ -25,10 +25,11 @@ void CntrApresentacaoControle::setServicoReservas(IServicoReservas* servico) {
 void CntrApresentacaoControle::executar(const Email& email) {
     this->emailGerente = email;
     int opcao;
-    string nomeExibicao = string(email);
+    string nomeExibicao = string(email.getEmail());
     Gerente gerenteLogado;
+    
     if (servicoPessoal->lerGerente(email, &gerenteLogado)) {
-        nomeExibicao = string(gerenteLogado.getNome()); 
+        nomeExibicao = string(gerenteLogado.getNome().getNome()); 
     }
 
     do {
@@ -81,6 +82,8 @@ void CntrApresentacaoControle::menuPessoas() {
         cout << "\n--- Gestao de Pessoas ---" << endl;
         cout << "1. Criar Hospede" << endl;
         cout << "2. Listar Hospedes" << endl;
+        cout << "3. Editar Hospede" << endl;
+        cout << "4. Excluir Hospede" << endl;
         cout << "0. Voltar" << endl;
         
         int op;
@@ -91,22 +94,20 @@ void CntrApresentacaoControle::menuPessoas() {
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "\n[ERRO] Digite apenas numeros." << endl;
             continue;
         }
 
         if (op == 0) break;
 
-        if (op == 1) {
-            cadastrarHospede();
-            cout << "\nPressione Enter para continuar...";
-            cin.get();
-        } else if (op == 2) {
-             listarHospedes();
-        } else {
-            cout << "Opcao invalida." << endl;
-            cin.ignore(); cin.get();
+        switch(op) {
+            case 1: cadastrarHospede(); break;
+            case 2: listarHospedes(); break;
+            case 3: editarHospede(); break;
+            case 4: excluirHospede(); break;
+            default: cout << "Opcao invalida." << endl;
         }
+        cout << "\nPressione Enter para continuar...";
+        cin.ignore(); cin.get();
     }
 }
 
@@ -157,10 +158,7 @@ void CntrApresentacaoControle::listarHospedes() {
     vector<Hospede> lista = servicoPessoal->listarHospedes();
 
     if (lista.empty()) {
-        cout << "Nenhum hospede encontrado no sistema." << endl;
-        cout << "Pressione Enter para voltar...";
-        cin.ignore();
-        cin.get();
+        cout << "Nenhum hospede encontrado." << endl;
         return;
     }
 
@@ -168,16 +166,65 @@ void CntrApresentacaoControle::listarHospedes() {
     
     for (const auto& h : lista) {
         cout << "--------------------------------------------------" << endl;
-        cout << "Nome:     " << string(h.getNome()) << endl;
-        cout << "Email:    " << string(h.getEmail()) << endl;
-        cout << "Endereco: " << string(h.getEndereco()) << endl;
-        cout << "Cartao:   " << string(h.getCartao()) << endl;
+        cout << "Nome:     " << h.getNome().getNome() << endl;
+        cout << "Email:    " << h.getEmail().getEmail() << endl;
+        cout << "Endereco: " << h.getEndereco().getEndereco() << endl;
+        cout << "Cartao:   " << h.getCartao().getCartao() << endl;
     }
     cout << "--------------------------------------------------" << endl;
-    
-    cout << "Pressione Enter para voltar...";
-    cin.ignore(); 
-    cin.get();
+}
+
+void CntrApresentacaoControle::editarHospede() {
+    cout << "\n--- Editar Hospede ---" << endl;
+    string emailAlvo;
+    cout << "Digite o Email do Hospede a editar: ";
+    cin >> emailAlvo;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    try {
+        Email email(emailAlvo);
+        
+        string nomeStr, enderecoStr, cartaoStr;
+        cout << "Novo Nome: "; getline(cin, nomeStr);
+        cout << "Novo Endereco: "; getline(cin, enderecoStr);
+        cout << "Novo Cartao: "; getline(cin, cartaoStr);
+
+        Hospede h;
+        h.setEmail(email); // Chave
+        h.setNome(Nome(nomeStr));
+        h.setEndereco(Endereco(enderecoStr));
+        h.setCartao(Cartao(cartaoStr));
+
+        if (servicoPessoal->atualizarHospede(h)) {
+            cout << "[SUCESSO] Hospede atualizado." << endl;
+        } else {
+            cout << "[ERRO] Hospede nao encontrado." << endl;
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void CntrApresentacaoControle::excluirHospede() {
+    cout << "\n--- Excluir Hospede ---" << endl;
+    string emailAlvo;
+    cout << "Digite o Email do Hospede: ";
+    cin >> emailAlvo;
+
+    try {
+        Email email(emailAlvo);
+        char conf;
+        cout << "Confirma exclusao? (S/N): "; cin >> conf;
+        if (conf == 'S' || conf == 's') {
+            if (servicoPessoal->excluirHospede(email)) {
+                cout << "[SUCESSO] Hospede excluido." << endl;
+            } else {
+                cout << "[ERRO] Hospede nao encontrado." << endl;
+            }
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
 }
 
 void CntrApresentacaoControle::menuHotelaria() {
@@ -189,16 +236,16 @@ void CntrApresentacaoControle::menuHotelaria() {
         cout << "2. Listar Hoteis" << endl;
         cout << "3. Criar Quarto" << endl;
         cout << "4. Listar Quartos" << endl;
+        cout << "5. Editar Hotel" << endl;
+        cout << "6. Excluir Hotel" << endl;
         cout << "0. Voltar" << endl;
         cout << "Opcao: ";
 
         if (!(cin >> opcao)) {
-            cout << "\nOpcao invalida. Digite apenas NUMEROS (0-4)." << endl;
+            cout << "\nOpcao invalida." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Pressione Enter para continuar...";
             cin.get(); 
-            
             continue;
         }
 
@@ -207,13 +254,13 @@ void CntrApresentacaoControle::menuHotelaria() {
             case 2: listarHoteis(); break;   
             case 3: criarQuarto(); break; 
             case 4: listarQuartos(); break;   
+            case 5: editarHotel(); break;
+            case 6: excluirHotel(); break;
             case 0: break;
             default: cout << "\nOpcao invalida!";
         }
-        if (opcao != 0)
-        {
+        if (opcao != 0) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
             cout << "\nPressione Enter para continuar...";
             cin.get();
         }
@@ -227,90 +274,25 @@ void CntrApresentacaoControle::cadastrarHotel() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     try {
-        cout << "Nome (5-20 chars, iniciais maiusculas): ";
-        getline(cin, nomeStr);
-        Nome nome(nomeStr);
-
-        cout << "Endereco (5-30 chars): ";
-        getline(cin, enderecoStr);
-        Endereco endereco(enderecoStr);
-
-        cout << "Telefone (+DDNNNNNNNNNNNN): ";
-        getline(cin, telefoneStr);
-        Telefone telefone(telefoneStr);
-
-        cout << "Codigo (10 alfanumericos): ";
-        getline(cin, codigoStr);
-        Codigo codigo(codigoStr);
+        cout << "Nome: "; getline(cin, nomeStr);
+        cout << "Endereco: "; getline(cin, enderecoStr);
+        cout << "Telefone: "; getline(cin, telefoneStr);
+        cout << "Codigo: "; getline(cin, codigoStr);
 
         Hotel novoHotel;
-        novoHotel.setNome(nome);
-        novoHotel.setEndereco(endereco);
-        novoHotel.setTelefone(telefone);
-        novoHotel.setCodigo(codigo);
+        novoHotel.setNome(Nome(nomeStr));
+        novoHotel.setEndereco(Endereco(enderecoStr));
+        novoHotel.setTelefone(Telefone(telefoneStr));
+        novoHotel.setCodigo(Codigo(codigoStr));
 
         if (servicoHotelaria->criarHotel(novoHotel)) {
             cout << "\nHotel cadastrado: " << nomeStr << endl;
         } else {
-            cout << "\nFalha ao cadastrar no sistema (Verifique se o codigo ja existe)." << endl;
+            cout << "\nFalha ao cadastrar (Codigo ja existe?)." << endl;
         }
 
     } catch (const invalid_argument& e) {
         cout << e.what() << endl;
-    }
-}
-
-void CntrApresentacaoControle::criarQuarto() {
-    limparTela();
-    cout << "\n=== CADASTRO DE QUARTO ===" << endl;
-    cout << "\n[Hoteis Disponiveis]:" << endl;
-    vector<Hotel> hoteis = servicoHotelaria->listarHoteis();
-    if (hoteis.empty()) {
-        cout << "Nenhum hotel cadastrado. Cadastre um hotel primeiro!" << endl;
-        cout << "Pressione Enter para voltar...";
-        cin.ignore(); cin.get();
-        return;
-    }
-
-    for (const auto& h : hoteis) {
-        cout << "- " << h.getNome().getNome() 
-             << " (Codigo: " << h.getCodigo().getCodigo() << ")" << endl;
-    }
-    cout << "--------------------------" << endl;
-
-    string codigoHotelStr, numeroStr, diariaStr, capacidadeStr;
-
-    try {
-        cout << "Digite o CODIGO do Hotel para este quarto: ";
-        cin >> codigoHotelStr;
-        Codigo codigoHotel(codigoHotelStr);
-
-        cout << "Numero do Quarto: ";
-        cin >> numeroStr;
-        Numero numero(stoi(numeroStr));
-
-        cout << "Capacidade (1-4): ";
-        cin >> capacidadeStr;
-        Capacidade capacidade(stoi(capacidadeStr));
-
-        cout << "Diaria: ";
-        cin >> diariaStr;
-        Dinheiro diaria(stod(diariaStr)); 
-
-        Quarto novoQuarto;
-        novoQuarto.setNumero(numero);
-        novoQuarto.setCapacidade(capacidade);
-        novoQuarto.setDiaria(diaria);
-        if (servicoHotelaria->criarQuarto(novoQuarto, codigoHotel)) {
-            cout << "\n[SUCESSO] Quarto criado e vinculado ao hotel!" << endl;
-        } else {
-            cout << "\n[ERRO] Hotel nao encontrado ou quarto ja existe." << endl;
-        }
-
-    } catch (const invalid_argument& e) {
-        cout << "\n[ERRO DE VALIDACAO] " << e.what() << endl;
-    } catch (...) {
-        cout << "\n[ERRO] Entrada invalida." << endl;
     }
 }
 
@@ -325,12 +307,114 @@ void CntrApresentacaoControle::listarHoteis() {
         cout << "Total encontrado: " << lista.size() << endl;
         for (const auto& h : lista) {
             cout << "------------------------------------------" << endl;
-            cout << "Codigo:   " << string(h.getCodigo()) << endl;
-            cout << "Nome:     " << string(h.getNome()) << endl;
-            cout << "Endereco: " << string(h.getEndereco()) << endl;
-            cout << "Telefone: " << string(h.getTelefone()) << endl;
+            cout << "Codigo:   " << h.getCodigo().getCodigo() << endl;
+            cout << "Nome:     " << h.getNome().getNome() << endl;
+            cout << "Endereco: " << h.getEndereco().getEndereco() << endl;
+            cout << "Telefone: " << h.getTelefone().getTelefone() << endl;
         }
         cout << "------------------------------------------" << endl;
+    }
+}
+
+void CntrApresentacaoControle::editarHotel() {
+    cout << "\n--- Editar Hotel ---" << endl;
+    string codStr;
+    cout << "Digite o Codigo do Hotel: ";
+    cin >> codStr;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    try {
+        Codigo codigo(codStr);
+        
+        string nomeStr, enderecoStr, telefoneStr;
+        cout << "Novo Nome: "; getline(cin, nomeStr);
+        cout << "Novo Endereco: "; getline(cin, enderecoStr);
+        cout << "Novo Telefone: "; getline(cin, telefoneStr);
+
+        Hotel h;
+        h.setCodigo(codigo);
+        h.setNome(Nome(nomeStr));
+        h.setEndereco(Endereco(enderecoStr));
+        h.setTelefone(Telefone(telefoneStr));
+
+        if (servicoHotelaria->atualizarHotel(h)) {
+            cout << "[SUCESSO] Hotel atualizado." << endl;
+        } else {
+            cout << "[ERRO] Hotel nao encontrado." << endl;
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void CntrApresentacaoControle::excluirHotel() {
+    cout << "\n--- Excluir Hotel ---" << endl;
+    string codStr;
+    cout << "Digite o Codigo do Hotel: ";
+    cin >> codStr;
+
+    try {
+        Codigo codigo(codStr);
+        char conf;
+        cout << "Confirma exclusao? (S/N): "; cin >> conf;
+        if (conf == 'S' || conf == 's') {
+            if (servicoHotelaria->excluirHotel(codigo)) {
+                cout << "[SUCESSO] Hotel excluido." << endl;
+            } else {
+                cout << "[ERRO] Hotel nao encontrado." << endl;
+            }
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void CntrApresentacaoControle::criarQuarto() {
+    limparTela();
+    cout << "\n=== CADASTRO DE QUARTO ===" << endl;
+    cout << "\n[Hoteis Disponiveis]:" << endl;
+    vector<Hotel> hoteis = servicoHotelaria->listarHoteis();
+    if (hoteis.empty()) {
+        cout << "Nenhum hotel cadastrado." << endl;
+        return;
+    }
+
+    for (const auto& h : hoteis) {
+        cout << "- " << h.getNome().getNome() 
+             << " (Codigo: " << h.getCodigo().getCodigo() << ")" << endl;
+    }
+    cout << "--------------------------" << endl;
+
+    string codigoHotelStr, numeroStr, diariaStr, capacidadeStr;
+
+    try {
+        cout << "Codigo do Hotel: "; cin >> codigoHotelStr;
+        Codigo codigoHotel(codigoHotelStr);
+
+        cout << "Numero do Quarto: "; cin >> numeroStr;
+        Numero numero(stoi(numeroStr));
+
+        cout << "Capacidade (1-4): "; cin >> capacidadeStr;
+        Capacidade capacidade(stoi(capacidadeStr));
+
+        cout << "Diaria: "; cin >> diariaStr;
+        Dinheiro diaria(stod(diariaStr)); 
+
+        Quarto novoQuarto;
+        novoQuarto.setNumero(numero);
+        novoQuarto.setCapacidade(capacidade);
+        novoQuarto.setDiaria(diaria);
+        
+        if (servicoHotelaria->criarQuarto(novoQuarto, codigoHotel)) {
+            cout << "\n[SUCESSO] Quarto criado." << endl;
+        } else {
+            cout << "\n[ERRO] Hotel nao encontrado ou quarto ja existe." << endl;
+        }
+
+    } catch (const invalid_argument& e) {
+        cout << "\n[ERRO DE VALIDACAO] " << e.what() << endl;
+    } catch (...) {
+        cout << "\n[ERRO] Entrada invalida." << endl;
     }
 }
 
@@ -345,7 +429,7 @@ void CntrApresentacaoControle::listarQuartos() {
     cout << "---------------------------" << endl;
 
     string codigoStr;
-    cout << "Digite o CODIGO do Hotel para ver os quartos: ";
+    cout << "Digite o CODIGO do Hotel: ";
     cin >> codigoStr;
 
     try {
@@ -375,29 +459,29 @@ void CntrApresentacaoControle::menuReservas() {
         cout << "\n--- Gestao de Reservas ---" << endl;
         cout << "1. Criar Reserva" << endl;
         cout << "2. Listar Reservas" << endl;
+        cout << "3. Editar Reserva" << endl;
+        cout << "4. Excluir Reserva" << endl;
         cout << "0. Voltar" << endl;
         cout << "Opcao: ";
 
         if (!(cin >> opcao)) {
-            cout << "\nOpcao invalida. Digite apenas NUMEROS (0-4)." << endl;
+            cout << "\nOpcao invalida." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Pressione Enter para continuar...";
             cin.get(); 
-            
             continue;
         }
 
         switch (opcao) {
             case 1: cadastrarReserva(); break; 
             case 2: listarReservas(); break;   
+            case 3: editarReserva(); break;
+            case 4: excluirReserva(); break;
             case 0: break;
             default: cout << "\nOpcao invalida!";
         }
-        if (opcao != 0)
-        {
+        if (opcao != 0) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
             cout << "\nPressione Enter para continuar...";
             cin.get();
         }
@@ -412,22 +496,17 @@ void CntrApresentacaoControle::cadastrarReserva() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     try {
-        cout << "Codigo (10 alfanumericos): ";
-        getline(cin, codigoStr);
+        cout << "Codigo: "; getline(cin, codigoStr);
         Codigo codigo(codigoStr);
 
-        cout << "Data Chegada (DD/MM/AAAA, ano 2000-2999): ";
-        getline(cin, chegadaStr);
+        cout << "Data Chegada: "; getline(cin, chegadaStr);
         Data chegada(chegadaStr);
 
-        cout << "Data Partida (DD/MM/AAAA, ano 2000-2999): ";
-        getline(cin, partidaStr);
+        cout << "Data Partida: "; getline(cin, partidaStr);
         Data partida(partidaStr);
         
         cout << "Valor Total (R$): ";
-        if (!(cin >> valorDouble)) {
-            throw std::invalid_argument("Valor total deve ser numerico.");
-        }
+        if (!(cin >> valorDouble)) throw std::invalid_argument("Valor deve ser numerico.");
         Dinheiro valor(valorDouble);
 
         Reserva novaReserva;
@@ -437,15 +516,15 @@ void CntrApresentacaoControle::cadastrarReserva() {
         novaReserva.setValor(valor);
 
         if (servicoReservas->criarReserva(novaReserva)) {
-            cout << "\nReserva criada com Codigo: " << codigoStr << endl;
+            cout << "\nReserva criada." << endl;
         } else {
-            cout << "\nFalha ao cadastrar no sistema." << endl;
+            cout << "\nFalha ao cadastrar." << endl;
         }
 
     } catch (const invalid_argument& e) {
         cout << e.what() << endl;
     } catch (const exception& e) {
-        cout << "\n Falha na entrada de dados: " << e.what() << endl;
+        cout << "\nErro: " << e.what() << endl;
     }
 }
 
@@ -460,14 +539,69 @@ void CntrApresentacaoControle::listarReservas() {
         cout << "Total encontrado: " << lista.size() << endl;
         for (const auto& r : lista) {
             cout << "------------------------------------------" << endl;
-            cout << "Codigo:    " << string(r.getCodigo()) << endl;
-            cout << "Chegada:   " << string(r.getChegada()) << endl;
-            cout << "Partida:   " << string(r.getPartida()) << endl;
-            cout << "Valor:     R$ " << string(r.getValor()) << endl;
+            cout << "Codigo:    " << r.getCodigo().getCodigo() << endl;
+            cout << "Chegada:   " << r.getChegada().getData() << endl;
+            cout << "Partida:   " << r.getPartida().getData() << endl;
+            cout << "Valor:     R$ " << r.getValor().getDinheiro() << endl;
         }
         cout << "------------------------------------------" << endl;
     }
 }
+
+void CntrApresentacaoControle::editarReserva() {
+    cout << "\n--- Editar Reserva ---" << endl;
+    string codStr;
+    cout << "Digite o Codigo da Reserva: ";
+    cin >> codStr;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    try {
+        Codigo codigo(codStr);
+        
+        string chegadaStr, partidaStr;
+        double valorDouble;
+        cout << "Nova Chegada: "; getline(cin, chegadaStr);
+        cout << "Nova Partida: "; getline(cin, partidaStr);
+        cout << "Novo Valor: "; cin >> valorDouble;
+
+        Reserva r;
+        r.setCodigo(codigo);
+        r.setChegada(Data(chegadaStr));
+        r.setPartida(Data(partidaStr));
+        r.setValor(Dinheiro(valorDouble));
+
+        if (servicoReservas->atualizarReserva(r)) {
+            cout << "[SUCESSO] Reserva atualizada." << endl;
+        } else {
+            cout << "[ERRO] Reserva nao encontrada." << endl;
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void CntrApresentacaoControle::excluirReserva() {
+    cout << "\n--- Excluir Reserva ---" << endl;
+    string codStr;
+    cout << "Digite o Codigo da Reserva: ";
+    cin >> codStr;
+
+    try {
+        Codigo codigo(codStr);
+        char conf;
+        cout << "Confirma exclusao? (S/N): "; cin >> conf;
+        if (conf == 'S' || conf == 's') {
+            if (servicoReservas->excluirReserva(codigo)) {
+                cout << "[SUCESSO] Reserva excluida." << endl;
+            } else {
+                cout << "[ERRO] Reserva nao encontrada." << endl;
+            }
+        }
+    } catch (const exception& e) {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
 void CntrApresentacaoControle::editarMinhaConta(const Email& email) {
     limparTela();
     cout << "\n=== EDITAR MEUS DADOS ===" << endl;
@@ -479,20 +613,16 @@ void CntrApresentacaoControle::editarMinhaConta(const Email& email) {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     try {
-        cout << "Novo Nome: ";
-        getline(cin, nomeStr);
-        
-        cout << "Nova Senha: ";
-        cin >> senhaStr; 
-        
-        cout << "Novo Ramal: ";
-        cin >> ramal;
+        cout << "Novo Nome: "; getline(cin, nomeStr);
+        cout << "Nova Senha: "; cin >> senhaStr; 
+        cout << "Novo Ramal: "; cin >> ramal;
 
         Gerente gerenteAtualizado;
         gerenteAtualizado.setEmail(email);
         gerenteAtualizado.setNome(Nome(nomeStr));
         gerenteAtualizado.setSenha(Senha(senhaStr));
         gerenteAtualizado.setRamal(Ramal(ramal));
+        
         if (servicoPessoal->atualizarGerente(gerenteAtualizado)) {
             cout << "\n[SUCESSO] Seus dados foram atualizados!" << endl;
         } else {
